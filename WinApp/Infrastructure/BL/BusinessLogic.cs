@@ -20,13 +20,10 @@ namespace WinApp.Infrastructure.BL
         public BusinessLogic()
         {
             ConnectionString = ConfigurationManager.ConnectionStrings[Constants.DefaultDbConnection].ConnectionString;
-            AddNewWordsLogic = new(ConnectionString);
             AuthManager = new(ConnectionString);
             CurrentUser = AuthManager.GetUser(UserName);
-            if (CurrentUser != null)
-                TrainYourselfLogic = new(ConnectionString, CurrentUser.ID);
-            else
-                TrainYourselfLogic = new(ConnectionString);
+            AddNewWordsLogic = new(ConnectionString, CurrentUser?.ID);
+            TrainYourselfLogic = new(ConnectionString, CurrentUser?.ID);
 
         }
     }

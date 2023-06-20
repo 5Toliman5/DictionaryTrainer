@@ -30,11 +30,13 @@ namespace WinApp
                 if (!CheckInputTextBoxes(GetAddDataTextBoxes)) return;
                 string dictionary = null;
                 var word = BusinessLogic.AddNewWordsLogic.CreateWordObject(this.InputWordTextBox.Text, this.InputTranslationTextBox.Text, dictionary, BusinessLogic.CurrentUser.ID);
-                BusinessLogic.AddNewWordsLogic.AddWordToDictionary(word);
-
+                var addWordResponse = BusinessLogic.AddNewWordsLogic.AddWordToDictionary(word);
                 InputWordTextBox.Text = null;
                 InputTranslationTextBox.Text = null;
-                addWordsErrorProvider.Clear();
+                if (addWordResponse is null)
+                    addWordsErrorProvider.Clear();
+                else
+                    this.addWordsErrorProvider.SetError((Control)sender, addWordResponse);
             }
             catch (Exception ex)
             {

@@ -7,30 +7,31 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WinApp.Infrastructure.BL.Abstract;
 
 namespace WinApp.Infrastructure.BL
 {
-    internal class AddNewWordsLogic
+    internal class AddNewWordsLogic : AbstractBusinessLogic
     {
-        private readonly IWordsRepository WordsRepository;
-
-        public AddNewWordsLogic(string connectionString) : this(new WordsRepository(connectionString))
-        {
-            
+        public AddNewWordsLogic(string connectionString, short? userId) : base(new WordsRepository(connectionString), userId)
+        { 
+            if (userId.HasValue)
+            {
+                this.Words = this.WordsRepository.GetAllWords(userId.Value);
+            }
         }
-        public AddNewWordsLogic(IWordsRepository wordsRepository)
-        {
-            WordsRepository = wordsRepository;
-        }
-        public void AddWordToDictionary(Word word)
+        public string AddWordToDictionary(Word word)
         {
             try
             {
+                if (this.Words.Any(x => x.Value == word.Value))
+                    return "You already have had this word!";
                 WordsRepository.InsertWord(word);
+                return null;
             }
             catch (Exception ex)
             {
-
+                return null;
             }
         }
         public Word CreateWordObject(string value, string traslation, string dictionary, short userId)

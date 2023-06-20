@@ -6,27 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinApp.Infrastructure.BL.Abstract;
 
 namespace WinApp.Infrastructure.BL
 {
-    internal class TrainYourselfLogic
+    internal class TrainYourselfLogic : AbstractBusinessLogic
     {
-        private readonly IWordsRepository WordsRepository;
         private Random Random;
-        public short? UserId { get; set; } = null;
-        public List<Word> Words { get; private set; }
         public Word CurrentWord { get; set; } = null;
-        public TrainYourselfLogic(string connectionString, short userId) : this(new WordsRepository(connectionString))
-        {
-            UserId = userId;
-        }
-        public TrainYourselfLogic(string connectionString) : this(new WordsRepository(connectionString))
+        public TrainYourselfLogic(string connectionString, short? userId) : this(new WordsRepository(connectionString), userId)
         {
         }
-        public TrainYourselfLogic(IWordsRepository wordsRepository)
+        public TrainYourselfLogic(IWordsRepository wordsRepository, short? userId) : base(wordsRepository, userId)
         {
             Random = new();
-            WordsRepository = wordsRepository;
             LoadAllWords();
         }
         public void LoadAllWords()
