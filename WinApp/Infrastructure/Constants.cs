@@ -12,6 +12,6 @@ namespace WinApp.Infrastructure
         public static string EmptyInput = "Please, enter the {0}.";
         public static string InputTextBoxRegex = @"\b[\p{L}\p{M}'-]+\b";
         public static string DefaultShowNextButtonText = "I remember!";
-        public static string ChangedShowNextButtonText = "Show next word";
+        public static string ChangedShowNextButtonText = "Show the next word";
     }
 }

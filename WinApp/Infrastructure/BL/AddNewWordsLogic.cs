@@ -25,7 +25,7 @@ namespace WinApp.Infrastructure.BL
             try
             {
                 if (this.Words.Any(x => x.Value == word.Value))
-                    return "You already have had this word!";
+                    return "You have already had this word!";
                 WordsRepository.InsertWord(word);
                 return null;
             }
