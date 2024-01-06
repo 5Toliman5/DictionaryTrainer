@@ -44,16 +44,21 @@
             InputTranslationTextBox = new TextBox();
             InputWordTextBox = new TextBox();
             addWordsErrorProvider = new ErrorProvider(components);
+            UserPage = new TabPage();
+            label3 = new Label();
+            UserNameTextBox = new TextBox();
             tabControl1.SuspendLayout();
             TrainYourselfPage.SuspendLayout();
             AddNewWordsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)addWordsErrorProvider).BeginInit();
+            UserPage.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(TrainYourselfPage);
             tabControl1.Controls.Add(AddNewWordsPage);
+            tabControl1.Controls.Add(UserPage);
             tabControl1.Location = new Point(2, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -206,6 +211,38 @@
             // 
             addWordsErrorProvider.ContainerControl = this;
             // 
+            // UserPage
+            // 
+            UserPage.BackColor = Color.Transparent;
+            UserPage.Controls.Add(UserNameTextBox);
+            UserPage.Controls.Add(label3);
+            UserPage.ForeColor = Color.Black;
+            UserPage.Location = new Point(4, 35);
+            UserPage.Name = "UserPage";
+            UserPage.Padding = new Padding(3);
+            UserPage.Size = new Size(791, 324);
+            UserPage.TabIndex = 2;
+            UserPage.Text = "User";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(6, 28);
+            label3.Name = "label3";
+            label3.Size = new Size(123, 26);
+            label3.TabIndex = 7;
+            label3.Text = "Current user";
+            // 
+            // UserNameTextBox
+            // 
+            UserNameTextBox.Location = new Point(135, 25);
+            UserNameTextBox.Name = "UserNameTextBox";
+            UserNameTextBox.Size = new Size(250, 34);
+            UserNameTextBox.TabIndex = 8;
+            UserNameTextBox.Tag = "word to learn";
+            UserNameTextBox.Text = "Toliman";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(12F, 26F);
@@ -227,6 +264,8 @@
             AddNewWordsPage.ResumeLayout(false);
             AddNewWordsPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)addWordsErrorProvider).EndInit();
+            UserPage.ResumeLayout(false);
+            UserPage.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -247,5 +286,8 @@
         private Button ShowTranslationButton;
         private TextBox DisplayTranslationTextBox;
         private Button DeleteWordButton;
+        private TabPage UserPage;
+        private Label label3;
+        private TextBox UserNameTextBox;
     }
 }

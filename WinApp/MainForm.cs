@@ -20,7 +20,8 @@ namespace WinApp
         public MainForm()
         {
             InitializeComponent();
-            BusinessLogic = new();
+            var userName = this.UserNameTextBox.Text;
+            BusinessLogic = new(userName);
         }
 
         private void addDataButton_Click(object sender, EventArgs e)
