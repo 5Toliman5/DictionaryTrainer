@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
             TrainYourselfPage = new TabPage();
             DeleteWordButton = new Button();
@@ -43,15 +44,15 @@
             label1 = new Label();
             InputTranslationTextBox = new TextBox();
             InputWordTextBox = new TextBox();
-            addWordsErrorProvider = new ErrorProvider(components);
             UserPage = new TabPage();
-            label3 = new Label();
             UserNameTextBox = new TextBox();
+            label3 = new Label();
+            addWordsErrorProvider = new ErrorProvider(components);
             tabControl1.SuspendLayout();
             TrainYourselfPage.SuspendLayout();
             AddNewWordsPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)addWordsErrorProvider).BeginInit();
             UserPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)addWordsErrorProvider).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -143,10 +144,10 @@
             AddNewWordsPage.Controls.Add(InputTranslationTextBox);
             AddNewWordsPage.Controls.Add(InputWordTextBox);
             AddNewWordsPage.ForeColor = Color.Black;
-            AddNewWordsPage.Location = new Point(4, 35);
+            AddNewWordsPage.Location = new Point(4, 24);
             AddNewWordsPage.Name = "AddNewWordsPage";
             AddNewWordsPage.Padding = new Padding(3);
-            AddNewWordsPage.Size = new Size(791, 324);
+            AddNewWordsPage.Size = new Size(791, 335);
             AddNewWordsPage.TabIndex = 1;
             AddNewWordsPage.Text = "Add new words!";
             // 
@@ -207,22 +208,27 @@
             InputWordTextBox.Tag = "word to learn";
             InputWordTextBox.TextChanged += TextBox_Validating;
             // 
-            // addWordsErrorProvider
-            // 
-            addWordsErrorProvider.ContainerControl = this;
-            // 
             // UserPage
             // 
             UserPage.BackColor = Color.Transparent;
             UserPage.Controls.Add(UserNameTextBox);
             UserPage.Controls.Add(label3);
             UserPage.ForeColor = Color.Black;
-            UserPage.Location = new Point(4, 35);
+            UserPage.Location = new Point(4, 24);
             UserPage.Name = "UserPage";
             UserPage.Padding = new Padding(3);
-            UserPage.Size = new Size(791, 324);
+            UserPage.Size = new Size(791, 335);
             UserPage.TabIndex = 2;
             UserPage.Text = "User";
+            // 
+            // UserNameTextBox
+            // 
+            UserNameTextBox.Location = new Point(135, 25);
+            UserNameTextBox.Name = "UserNameTextBox";
+            UserNameTextBox.Size = new Size(250, 34);
+            UserNameTextBox.TabIndex = 8;
+            UserNameTextBox.Tag = "word to learn";
+            UserNameTextBox.Text = "Toliman";
             // 
             // label3
             // 
@@ -234,14 +240,9 @@
             label3.TabIndex = 7;
             label3.Text = "Current user";
             // 
-            // UserNameTextBox
+            // addWordsErrorProvider
             // 
-            UserNameTextBox.Location = new Point(135, 25);
-            UserNameTextBox.Name = "UserNameTextBox";
-            UserNameTextBox.Size = new Size(250, 34);
-            UserNameTextBox.TabIndex = 8;
-            UserNameTextBox.Tag = "word to learn";
-            UserNameTextBox.Text = "Toliman";
+            addWordsErrorProvider.ContainerControl = this;
             // 
             // MainForm
             // 
@@ -252,6 +253,7 @@
             Controls.Add(tabControl1);
             Font = new Font("Comic Sans MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.White;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Location = new Point(800, 1300);
             Margin = new Padding(5, 6, 5, 6);
             MaximumSize = new Size(820, 400);
@@ -263,9 +265,9 @@
             TrainYourselfPage.PerformLayout();
             AddNewWordsPage.ResumeLayout(false);
             AddNewWordsPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)addWordsErrorProvider).EndInit();
             UserPage.ResumeLayout(false);
             UserPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)addWordsErrorProvider).EndInit();
             ResumeLayout(false);
         }
 

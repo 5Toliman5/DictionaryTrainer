@@ -120,4 +120,24 @@
   <metadata name="addWordsErrorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAGABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAAAAMQOAADEDgAAAAAAAAAA
+        AADe5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/e5N/d497e5N/d497d
+        497d497d4uDKzcu/vby1rqu1rqvAvr3Q0c/c497d497d497d4uDc497d4uDd497d497d496jl5OXhoMN
+        AQALAAJ9aGaQf3ynm5fDwcDd5N/d497d4uDd497d497d497d495xXFoNAQENAQENAQEOAgINAQENAQEN
+        BQaeko7Fw8Ld5N/d4uDd497d497d494PAQMCQekJhf8IBAMNAwMwDRcWBSAjA1QNAQEMAACrop/U2dfd
+        497d497d497d4uANAQEKTvOk0jmWZQ/Q3YlC1v9G1/01DqYjCHANAQGWh4TLzszd4uDd497d497e4+EN
+        AQHU7LJ8Ugvr8+gEAwcEAgEMpP0cwfg7FroKAAmWg4DCxcPb4t/d497d497d494MAgLP3oNcUwr///8N
+        AQEJAwQNAQEqN/0GfP8uGcwMAgLd3Njd4uDc497d497d494MAgK0oSAYCgTz8/MNAQEQAAoNAQGxL4IV
+        WfowH/kJAQHZ3tze4+Hd497d497d4uAMAgISCA4OBARvT0kMAgIMAgIMAgIPAQL4+ObQ5fvAu7re5N/d
+        4uDd497d497e4+EMAgLHqoUXJOonIfAtH+8tGuswFNw4C6EVofwNAQHf5eDd4uDd497d497d497e4+EM
+        AgKepfXe3/vz+v30+fz4/P/+/v7/+vkNAQHe5t/d497d497d4uDc4t3d497e5N8LAAALAQENAQENAQEN
+        AQENAQENAQENAQHg5N/d497d4uDd4uDd4uDd497d497d497d4uDd497e5N/d4uDi49/g5N/d5N/d497d
+        497d497d4uDd497d4uDc497d4uDd4uDd4uDe5N/d497d497d4uDd497d497e5N/d497d497d4uDd4uDd
+        4uDd497d497d4uDd4uDf5eDd4uDd4uDe5N/d4uDe4+Hd4uDd4uDf5eDd497d4uDe4+EAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+</value>
+  </data>
 </root>
