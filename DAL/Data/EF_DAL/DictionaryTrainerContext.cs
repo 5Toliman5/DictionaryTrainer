@@ -17,14 +17,14 @@ public partial class DictionaryTrainerContext : DbContext
         : base(options)
     {
     }
-    //public DictionaryTrainerContext()
-    //{
-        
-    //}
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Word> Words { get; set; }
-
+    // For EF Migrations
+    //public DictionaryTrainerContext(){}
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //=> optionsBuilder.UseSqlServer("Server=localhost;Database=DictionaryTrainer;User Id=DTLogin ;Password=DTPass;Trusted_Connection=True;TrustServerCertificate=True;");
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer(_connectionString);
 
