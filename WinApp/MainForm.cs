@@ -1,27 +1,24 @@
-using DAL.Data.EF_DAL;
-using DAL.Models;
+using DictionaryTrainer.Domain.Repositories;
 using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel;
-using System.Configuration;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using WinApp.Infrastructure;
 using WinApp.Infrastructure.BL;
 using WinApp.Infrastructure.FormHandling;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using TextBox = System.Windows.Forms.TextBox;
 
 namespace WinApp
 {
     public partial class MainForm : Form
     {
-        private readonly BusinessLogic BusinessLogic;
-        public MainForm()
+        private readonly WordsUnitOfWork WordsUnitOfWork;
+        private readonly IAuthenticationRepository AuthenticationRepository;
+        private readonly IWordsRepository WordsRepository;
+        public MainForm(IWordsRepository wordsRepository, IAuthenticationRepository authenticationRepository)
         {
             InitializeComponent();
             var userName = this.UserNameTextBox.Text;
-            BusinessLogic = new(userName);
+            this.WordsRepository = wordsRepository;
+            this.AuthenticationRepository = authenticationRepository;
+            this.WordsUnitOfWork = new(this.AuthenticationRepository, this.WordsRepository, userName);
         }
 
         private void addDataButton_Click(object sender, EventArgs e)
@@ -30,8 +27,8 @@ namespace WinApp
             {
                 if (!CheckInputTextBoxes(GetAddDataTextBoxes)) return;
                 string dictionary = null;
-                var word = BusinessLogic.AddNewWordsLogic.CreateWordObject(this.InputWordTextBox.Text, this.InputTranslationTextBox.Text, dictionary, BusinessLogic.CurrentUser.ID);
-                var addWordResponse = BusinessLogic.AddNewWordsLogic.AddWordToDictionary(word);
+                var word = WordsUnitOfWork.AddNewWordsManager.CreateWordObject(this.InputWordTextBox.Text, this.InputTranslationTextBox.Text, dictionary, WordsUnitOfWork.CurrentUser.ID);
+                var addWordResponse = WordsUnitOfWork.AddNewWordsManager.AddWordToDictionary(word);
                 InputWordTextBox.Text = null;
                 InputTranslationTextBox.Text = null;
                 if (addWordResponse is null)
@@ -79,12 +76,11 @@ namespace WinApp
                 textBox.Text = string.Empty;
             }
         }
-
         private void DisplayNewWord()
         {
             DisplayWordTextBox.Text = string.Empty;
             DisplayTranslationTextBox.Text = string.Empty;
-            var word = BusinessLogic.TrainYourselfLogic.GetNewWord();
+            var word = WordsUnitOfWork.TrainYourselfManager.GetNewWord();
             if (word != null)
                 DisplayWordTextBox.Text = word.Value;
         }
@@ -92,26 +88,22 @@ namespace WinApp
         {
             DisplayNewWord();
         }
-
         private void ShowNextButton_Click(object sender, EventArgs e)
         {
             DisplayNewWord();
             ShowNextButton.Text = Constants.DefaultShowNextButtonText;
-
         }
-
         private void ShowTranslationButton_Click(object sender, EventArgs e)
         {
-            if (BusinessLogic.TrainYourselfLogic.CurrentWord == null) return;
-            BusinessLogic.TrainYourselfLogic.SaveProgress(DAL.Data.Abstract.DatabaseAction.Update);
-            DisplayTranslationTextBox.Text = BusinessLogic.TrainYourselfLogic.CurrentWord.Translation;
+            if (WordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
+            WordsUnitOfWork.TrainYourselfManager.UpdateCurrentWord();
+            DisplayTranslationTextBox.Text = WordsUnitOfWork.TrainYourselfManager.CurrentWord.Translation;
             ShowNextButton.Text = Constants.ChangedShowNextButtonText;
         }
-
         private void DeleteWordButton_Click(object sender, EventArgs e)
         {
-            if (BusinessLogic.TrainYourselfLogic.CurrentWord == null) return;
-            BusinessLogic.TrainYourselfLogic.DeleteWord();
+            if (WordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
+            WordsUnitOfWork.TrainYourselfManager.DeleteCurrentWord();
             DisplayNewWord();
         }
     }
