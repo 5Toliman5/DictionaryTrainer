@@ -1,6 +1,7 @@
 using DictionaryTrainer.DAL.EF;
 using DictionaryTrainer.DAL.Repositories;
 using DictionaryTrainer.Domain.Repositories;
+using DictionaryTrainer.WinApp.Presenter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,6 +30,8 @@ namespace WinApp
             services.AddDbContext<DictionaryTrainerContext>(options => options.UseSqlServer(connString));
             services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
             services.AddTransient<IWordsRepository, WordsRepository>();
+            services.AddTransient<IMainFormPresenter, MainFormPresenter>();
+            
 
         }
     }

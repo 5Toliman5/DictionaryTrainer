@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WinApp.Infrastructure;
 
-namespace WinApp.Infrastructure.FormHandling
+namespace DictionaryTrainer.WinApp.Infrastructure.Validation
 {
-    internal static class Validator
+    internal static class MainFormValidator
     {
         public static bool ValidateTextBoxInput(TextBox textBox)
         {

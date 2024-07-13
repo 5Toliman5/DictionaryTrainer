@@ -10,29 +10,36 @@ namespace DictinaryTrainer.Infrastructure.Managers
         {
             this.Words = _wordsRepository.GetAllWords(_userId.Value);
         }
-        public string AddWordToDictionary(Word word)
+        public void AddWordToDictionary(Word word)
         {
             try
             {
-                if (this.Words.Any(x => x.Value == word.Value))
-                    return "You have already had this word!";
+                var existingWord = this.Words.SingleOrDefault(x => x.Value == word.Value);
+                if (existingWord is not null)
+                {
+                    _wordsRepository.DeleteWord(existingWord);
+                    this.Words.Remove(existingWord);
+                }
                 _wordsRepository.InsertWord(word);
-                return string.Empty;
+                this.Words.Add(word);
             }
             catch (Exception ex)
             {
-                return string.Empty;
             }
         }
-        public Word CreateWordObject(string value, string traslation, string dictionary, short userId)
+        public Word CreateWordObject(string value, string traslation, short userId)
         {
             return new Word()
             {
                 Value = value,
                 Translation = traslation,
-                Dictionary = dictionary,
                 UserId = userId
             };
+        }
+
+        public Word CreateWordObject(string value, string traslation, string dictionary, short userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

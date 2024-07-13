@@ -4,7 +4,7 @@ using DictionaryTrainer.Domain.Entities;
 using DictionaryTrainer.Domain.Repositories;
 using System.Configuration;
 
-namespace WinApp.Infrastructure.BL
+namespace DictionaryTrainer.WinApp.Infrastructure.BusinessLogic
 {
     internal class WordsUnitOfWork
     {

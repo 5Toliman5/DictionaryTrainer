@@ -4,7 +4,8 @@ namespace DictionaryTrainer.Domain.Managers
 {
     public interface IAddNewWordsManager
     {
-        string AddWordToDictionary(Word word);
+        void AddWordToDictionary(Word word);
+        Word CreateWordObject(string value, string traslation, short userId);
         Word CreateWordObject(string value, string traslation, string dictionary, short userId);
     }
 }

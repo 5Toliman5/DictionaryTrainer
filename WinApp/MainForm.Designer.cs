@@ -161,7 +161,7 @@
             AddDataButton.TabIndex = 7;
             AddDataButton.Text = "Add the data!";
             AddDataButton.UseVisualStyleBackColor = false;
-            AddDataButton.Click += addDataButton_Click;
+            AddDataButton.Click += AddDataButton_Click;
             // 
             // label4
             // 
