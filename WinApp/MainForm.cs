@@ -12,22 +12,23 @@ namespace WinApp
     public partial class MainForm : Form, IMainFormView
     {
         private readonly IMainFormPresenter _presenter;
-        public MainForm(IWordsRepository wordsRepository, IAuthenticationRepository authenticationRepository)
+		public string InputWord => this.InputWordTextBox.Text;
+		public string InputTranslation => this.InputTranslationTextBox.Text;
+		public MainForm(IWordsRepository wordsRepository, IAuthenticationRepository authenticationRepository)
         {
             InitializeComponent();
-
             var userName = UserNameTextBox.Text;
             var wordsUnitOfWork = new WordsUnitOfWork(authenticationRepository, wordsRepository, userName);
-            _presenter = new MainFormPresenter(this, wordsUnitOfWork);
-            _presenter.Initialize();
+			_presenter = new MainFormPresenter(this, wordsUnitOfWork);
+			_presenter.Initialize();
         }
         public List<TextBox> GetAddDataInputsList()
         {
             return new List<TextBox>
-                {
-                    this.InputWordTextBox,
-                    this.InputTranslationTextBox
-                };
+            {
+                this.InputWordTextBox,
+                this.InputTranslationTextBox
+            };
         }
         public bool ValidateInput(List<TextBox> textboxes)
         {
@@ -35,39 +36,39 @@ namespace WinApp
             {
                 if (textBox.Text.IsNullOrEmpty())
                 {
-                    this.addWordsErrorProvider.SetError(textBox, string.Format(Constants.EmptyInput, textBox.Tag));
+                    this.AddWordsErrorProvider.SetError(textBox, string.Format(Constants.EmptyInput, textBox.Tag));
                     return false;
                 }
             }
             return true;
         }
-        public string InputWord => InputWordTextBox.Text;
-        public string InputTranslation => InputTranslationTextBox.Text;
         public void ShowError(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        public void ClearInput()
+        public void Clear()
         {
-            InputWordTextBox.Text = string.Empty;
-            InputTranslationTextBox.Text = string.Empty;
-        }
+            this.InputWordTextBox.Text = string.Empty;
+			this.InputTranslationTextBox.Text = string.Empty;
+			this.AddWordsErrorProvider.Clear();
+
+		}
         public void ClearOutput()
         {
-            DisplayWordTextBox.Text = string.Empty;
-            DisplayTranslationTextBox.Text = string.Empty;
+            this.DisplayWordTextBox.Text = string.Empty;
+			this.DisplayTranslationTextBox.Text = string.Empty;
         }
         public void DisplayNewWord(string word)
         {
-            DisplayWordTextBox.Text = word;
+			this.DisplayWordTextBox.Text = word;
         }
         public void DisplayTranslation(string translation)
         {
-            DisplayTranslationTextBox.Text = translation;
+            this.DisplayTranslationTextBox.Text = translation;
         }
         public void SetNextButtonText(string text)
         {
-            ShowNextButton.Text = text;
+            this.ShowNextButton.Text = text;
         }
         private void AddDataButton_Click(object sender, EventArgs e)
         {
@@ -94,7 +95,7 @@ namespace WinApp
             var textBox = (TextBox)sender;
             if (!MainFormValidator.ValidateTextBoxInput(textBox))
             {
-                this.addWordsErrorProvider.SetError(textBox, "Input must contain only letters and digits.");
+                this.AddWordsErrorProvider.SetError(textBox, "Input must contain only letters and digits.");
                 textBox.Text = string.Empty;
             }
         }

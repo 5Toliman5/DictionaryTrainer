@@ -1,26 +1,35 @@
 ﻿using DictinaryTrainer.Infrastructure.Managers;
-using DictionaryTrainer.DAL.EF;
 using DictionaryTrainer.Domain.Entities;
+using DictionaryTrainer.Domain.Managers;
 using DictionaryTrainer.Domain.Repositories;
-using System.Configuration;
 
 namespace DictionaryTrainer.WinApp.Infrastructure.BusinessLogic
 {
-    internal class WordsUnitOfWork
-    {
-        private string UserName { get; set; }
-        public AddNewWordsManager AddNewWordsManager { get; }
-        public TrainYourselfManager TrainYourselfManager { get; }
-        public AuthenticationManager AuthenticationManager { get; }
-        public User? CurrentUser { get; private set; }
-        public WordsUnitOfWork(IAuthenticationRepository authenticationRepository, IWordsRepository wordsRepository, string username)
-        {
-            UserName = username;
-            AuthenticationManager = new(authenticationRepository);
-            if (!string.IsNullOrEmpty(UserName))
-                CurrentUser = authenticationRepository.GetUser(UserName);
-            AddNewWordsManager = new(wordsRepository, CurrentUser?.ID);
-            TrainYourselfManager = new(wordsRepository, CurrentUser?.ID);
-        }
-    }
+	internal interface IWordsUnitOfWork
+	{
+		IAddNewWordsManager AddNewWordsManager { get; }
+		IAuthenticationManager AuthenticationManager { get; }
+		ITrainYourselfManager TrainYourselfManager { get; }
+		User? CurrentUser { get; }
+	}
+
+	internal class WordsUnitOfWork : IWordsUnitOfWork
+	{
+		private string UserName { get; set; }
+		public IAddNewWordsManager AddNewWordsManager { get; }
+		public ITrainYourselfManager TrainYourselfManager { get; }
+		public IAuthenticationManager AuthenticationManager { get; }
+		public User? CurrentUser { get; private set; }
+		public WordsUnitOfWork(IAuthenticationRepository authenticationRepository, IWordsRepository wordsRepository, string username)
+		{
+			this.UserName = username;
+			this.AuthenticationManager = new AuthenticationManager(authenticationRepository);
+
+			if (!string.IsNullOrEmpty(UserName))
+				this.CurrentUser = authenticationRepository.GetUser(this.UserName);
+
+			this.AddNewWordsManager = new AddNewWordsManager(wordsRepository, CurrentUser?.ID);
+			this.TrainYourselfManager = new TrainYourselfManager(wordsRepository, CurrentUser?.ID);
+		}
+	}
 }

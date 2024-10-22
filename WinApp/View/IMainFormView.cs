@@ -5,7 +5,7 @@
         string InputTranslation { get; }
         string InputWord { get; }
 
-        void ClearInput();
+        void Clear();
         void ClearOutput();
         void DisplayNewWord(string word);
         void DisplayTranslation(string translation);
