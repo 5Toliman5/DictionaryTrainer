@@ -7,5 +7,6 @@
         public static string InputTextBoxRegex = @"\b[\p{L}\p{M}'-]+\b";
         public static string DefaultShowNextButtonText = "I remember!";
         public static string ChangedShowNextButtonText = "Next word";
-    }
+		public static string NoWordsFoundError = "No words have been found for the specified user.";
+	}
 }

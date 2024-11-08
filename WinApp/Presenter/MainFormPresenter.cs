@@ -1,18 +1,19 @@
-﻿using DictionaryTrainer.WinApp.Infrastructure.BusinessLogic;
+﻿using Common.Extensions;
+using DictionaryTrainer.WinApp.BusinessLogic;
 using DictionaryTrainer.WinApp.View;
 using WinApp.Infrastructure;
 
 namespace DictionaryTrainer.WinApp.Presenter
 {
-	internal class MainFormPresenter : IMainFormPresenter
+    internal class MainFormPresenter : IMainFormPresenter
     {
-        private readonly IMainFormView _view;
-        private readonly IWordsUnitOfWork _wordsUnitOfWork;
+        private readonly IMainFormView View;
+        private readonly IWordsUnitOfWork WordsUnitOfWork;
 
         public MainFormPresenter(IMainFormView view, IWordsUnitOfWork wordsUnitOfWork)
         {
-			_view = view;
-			_wordsUnitOfWork = wordsUnitOfWork;
+			View = view;
+			WordsUnitOfWork = wordsUnitOfWork;
         }
         public void Initialize()
         {
@@ -22,40 +23,43 @@ namespace DictionaryTrainer.WinApp.Presenter
         {
             try
             {
-                if (!_view.ValidateInput(_view.GetAddDataInputsList()))
+                if (!View.ValidateInput(View.GetAddDataInputsList()))
                 {
                     return;
                 }
-                var word = _wordsUnitOfWork.AddNewWordsManager.CreateWordObject(_view.InputWord, _view.InputTranslation, _wordsUnitOfWork.CurrentUser.ID);
-				_wordsUnitOfWork.AddNewWordsManager.AddWordToDictionary(word);
-				_view.Clear();
+                var word = WordsUnitOfWork.AddNewWordsManager.CreateWordObject(View.InputWord, View.InputTranslation, WordsUnitOfWork.CurrentUser.ID);
+				WordsUnitOfWork.AddNewWordsManager.AddWordToDictionary(word);
+				View.Clear();
             }
             catch (Exception ex)
             {
-				_view.ShowError($"An error occurred: {ex.Message}");
+				View.ShowError($"An error occurred: {ex.Message}");
             }
         }
         public void DisplayNewWord()
         {
-			_view.ClearOutput();
-            var word = _wordsUnitOfWork.TrainYourselfManager.GetNewWord();
-            if (word != null)
-            {
-				_view.DisplayNewWord(word.Value);
-            }
-			_view.SetNextButtonText(Constants.DefaultShowNextButtonText);
+			View.ClearOutput();
+
+            WordsUnitOfWork.TrainYourselfManager.LoadAllWords();
+            if (WordsUnitOfWork.TrainYourselfManager.Words.IsNullOrEmpty())
+                View.ShowError(Constants.NoWordsFoundError);
+
+			var word = WordsUnitOfWork.TrainYourselfManager.GetNewWord();
+            if (word is not null)
+				View.DisplayNewWord(word.Value);
+			View.SetNextButtonText(Constants.DefaultShowNextButtonText);
         }
         public void ShowTranslation()
         {
-            if (_wordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
-			_wordsUnitOfWork.TrainYourselfManager.UpdateCurrentWord();
-			_view.DisplayTranslation(_wordsUnitOfWork.TrainYourselfManager.CurrentWord.Translation);
-			_view.SetNextButtonText(Constants.ChangedShowNextButtonText);
+            if (WordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
+			WordsUnitOfWork.TrainYourselfManager.UpdateCurrentWord();
+			View.DisplayTranslation(WordsUnitOfWork.TrainYourselfManager.CurrentWord.Translation);
+			View.SetNextButtonText(Constants.ChangedShowNextButtonText);
         }
         public void DeleteWord()
         {
-            if (_wordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
-			_wordsUnitOfWork.TrainYourselfManager.DeleteCurrentWord();
+            if (WordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
+			WordsUnitOfWork.TrainYourselfManager.DeleteCurrentWord();
 			DisplayNewWord();
         }
     }

@@ -4,6 +4,6 @@ namespace DictionaryTrainer.Domain.Repositories
 {
     public interface IAuthenticationRepository
     {
-        User GetUser(string userName);
+        User? GetUser(string userName);
     }
 }

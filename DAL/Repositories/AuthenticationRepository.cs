@@ -6,15 +6,12 @@ namespace DictionaryTrainer.DAL.Repositories
 {
     public class AuthenticationRepository : IAuthenticationRepository
     {
-        private readonly DictionaryTrainerContext _dbContext;
+        private readonly DictionaryTrainerContext DbContext;
         public AuthenticationRepository(DictionaryTrainerContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
-        public User GetUser(string userName)
-        {
-            return _dbContext.Users.Single(x => x.Name == userName);
-        }
-    }
+		public User? GetUser(string userName) => DbContext.Users.SingleOrDefault(x => x.Name == userName);
+	}
 }

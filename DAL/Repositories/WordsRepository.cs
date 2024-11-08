@@ -6,32 +6,32 @@ namespace DictionaryTrainer.DAL.Repositories
 {
     public class WordsRepository : IWordsRepository
     {
-        private readonly DictionaryTrainerContext _dbContext;
+        private readonly DictionaryTrainerContext DbContext;
         public WordsRepository(DictionaryTrainerContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public void InsertWord(Word word)
         {
-            _dbContext.Words.Add(word);
-            _dbContext.SaveChanges();
+            DbContext.Words.Add(word);
+            DbContext.SaveChanges();
         }
         public List<Word> GetAllWords(short userId)
         {
-            return _dbContext.Words.Where(x => x.UserId == userId).ToList();
+            return DbContext.Words.Where(x => x.UserId == userId).ToList();
         }
 
         public void UpdateWord(Word word)
         {
-            _dbContext.Update(word);
-            _dbContext.SaveChanges();
+            DbContext.Update(word);
+            DbContext.SaveChanges();
         }
 
         public void DeleteWord(Word word)
         {
-            _dbContext.Remove(word);
-            _dbContext.SaveChanges();
+            DbContext.Remove(word);
+            DbContext.SaveChanges();
         }
     }
 }

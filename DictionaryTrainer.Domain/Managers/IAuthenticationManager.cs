@@ -4,6 +4,6 @@ namespace DictionaryTrainer.Domain.Managers
 {
     public interface IAuthenticationManager
     {
-        User GetUserAsync(string username);
+        User? GetUserAsync(string username);
     }
 }
