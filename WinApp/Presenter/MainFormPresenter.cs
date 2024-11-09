@@ -1,66 +1,81 @@
 ﻿using Common.Extensions;
-using DictionaryTrainer.WinApp.BusinessLogic;
+using DictinaryTrainer.BusinessLogic.Models;
+using DictinaryTrainer.BusinessLogic.Services;
 using DictionaryTrainer.WinApp.View;
 using WinApp.Infrastructure;
 
 namespace DictionaryTrainer.WinApp.Presenter
 {
-    internal class MainFormPresenter : IMainFormPresenter
+	public class MainFormPresenter : IMainFormPresenter
     {
         private readonly IMainFormView View;
-        private readonly IWordsUnitOfWork WordsUnitOfWork;
-
-        public MainFormPresenter(IMainFormView view, IWordsUnitOfWork wordsUnitOfWork)
-        {
+        private readonly IUserService UserService;
+        private readonly IWordTrainerService WordTrainerService;
+        private short? UserId;
+		public MainFormPresenter(IMainFormView view, IUserService userService, IWordTrainerService wordTrainerService)
+		{
 			View = view;
-			WordsUnitOfWork = wordsUnitOfWork;
-        }
-        public void Initialize()
+			UserService = userService;
+			WordTrainerService = wordTrainerService;
+		}
+		public void OnUserChanged(object? sender, string userName)
+		{
+			UserId = UserService.GetUserId(userName);
+			if (!ValidateUser()) 
+				return;
+			WordTrainerService.SetUser(UserId.Value);
+		}
+
+		public void AddWord()
         {
-			DisplayNewWord();
-        }
-        public void AddWord()
-        {
-            try
-            {
-                if (!View.ValidateInput(View.GetAddDataInputsList()))
-                {
-                    return;
-                }
-                var word = WordsUnitOfWork.AddNewWordsManager.CreateWordObject(View.InputWord, View.InputTranslation, WordsUnitOfWork.CurrentUser.ID);
-				WordsUnitOfWork.AddNewWordsManager.AddWordToDictionary(word);
-				View.Clear();
-            }
-            catch (Exception ex)
-            {
-				View.ShowError($"An error occurred: {ex.Message}");
-            }
-        }
+			if (!View.ValidateInput(View.GetAddDataInputsList()))
+				return;
+			
+			if (!ValidateUser())
+				return;
+			var word = new WordDto(View.InputWord, View.InputTranslation);
+			WordTrainerService.AddWord(word);
+			View.Clear();
+		}
         public void DisplayNewWord()
         {
 			View.ClearOutput();
-
-            WordsUnitOfWork.TrainYourselfManager.LoadAllWords();
-            if (WordsUnitOfWork.TrainYourselfManager.Words.IsNullOrEmpty())
+			if (!UserId.HasValue)
+				return;
+            var wordsCount = WordTrainerService.LoadAllWords();
+            if (wordsCount == 0)
                 View.ShowError(Constants.NoWordsFoundError);
 
-			var word = WordsUnitOfWork.TrainYourselfManager.GetNewWord();
+			var word = WordTrainerService.GetNewWord();
             if (word is not null)
 				View.DisplayNewWord(word.Value);
 			View.SetNextButtonText(Constants.DefaultShowNextButtonText);
         }
         public void ShowTranslation()
         {
-            if (WordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
-			WordsUnitOfWork.TrainYourselfManager.UpdateCurrentWord();
-			View.DisplayTranslation(WordsUnitOfWork.TrainYourselfManager.CurrentWord.Translation);
+            var currentWord = WordTrainerService.GetCurrentWord();
+
+			if (currentWord is null) 
+                return;
+			WordTrainerService.UpdateCurrentWord();
+			View.DisplayTranslation(currentWord.Translation);
 			View.SetNextButtonText(Constants.ChangedShowNextButtonText);
         }
         public void DeleteWord()
         {
-            if (WordsUnitOfWork.TrainYourselfManager.CurrentWord == null) return;
-			WordsUnitOfWork.TrainYourselfManager.DeleteCurrentWord();
+            if (WordTrainerService.GetCurrentWord() is null)
+                return;
+			WordTrainerService.DeleteCurrentWord();
 			DisplayNewWord();
         }
+		private bool ValidateUser()
+		{
+			if (!UserId.HasValue)
+			{
+				View.ShowError("User has not been found!");
+				return false;
+			}
+			return true;
+		}
     }
 }

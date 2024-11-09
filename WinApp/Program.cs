@@ -1,13 +1,12 @@
+using DictinaryTrainer.BusinessLogic.Services;
 using DictionaryTrainer.DAL.EF;
-using DictionaryTrainer.DAL.Repositories;
-using DictionaryTrainer.Domain.Repositories;
 using DictionaryTrainer.WinApp.Presenter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WinApp
 {
-    internal static class Program
+	internal static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
@@ -28,11 +27,12 @@ namespace WinApp
             services.AddSingleton<MainForm>();
             var connString = System.Configuration.ConfigurationManager.AppSettings["ConnectionString"];
             services.AddDbContext<DictionaryTrainerContext>(options => options.UseSqlServer(connString));
-            services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
-            services.AddTransient<IWordsRepository, WordsRepository>();
-            services.AddTransient<IMainFormPresenter, MainFormPresenter>();
-            
+			services.AddTransient<IDictionaryTrainerContext>(provider => provider.GetService<DictionaryTrainerContext>());
+			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<IWordTrainerService, WordTrainerService>();
+			services.AddTransient<IMainFormPresenter, MainFormPresenter>();
 
-        }
+
+		}
     }
 }

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryTrainer.WinApp", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryTrainer.DAL", "DAL\DictionaryTrainer.DAL.csproj", "{5A41918F-58B4-425F-96F9-D1761DA470C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryTrainer.Domain", "DictionaryTrainer.Domain\DictionaryTrainer.Domain.csproj", "{6BEF5A63-A141-4D95-B9CA-E6F8E6572AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryTrainer.Domain", "DictionaryTrainer.Domain\DictionaryTrainer.Domain.csproj", "{6BEF5A63-A141-4D95-B9CA-E6F8E6572AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictinaryTrainer.Infrastructure", "DictinaryTrainer.Infrastructure\DictinaryTrainer.Infrastructure.csproj", "{CC37E9CF-B582-4A20-9E39-9CB052C26E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictinaryTrainer.BusinessLogic", "DictinaryTrainer.Infrastructure\DictinaryTrainer.BusinessLogic.csproj", "{CC37E9CF-B582-4A20-9E39-9CB052C26E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CC37E9CF-B582-4A20-9E39-9CB052C26E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC37E9CF-B582-4A20-9E39-9CB052C26E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC37E9CF-B582-4A20-9E39-9CB052C26E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
