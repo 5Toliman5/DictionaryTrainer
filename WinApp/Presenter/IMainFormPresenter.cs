@@ -1,12 +1,12 @@
 ﻿namespace DictionaryTrainer.WinApp.Presenter
 {
-	internal interface IMainFormPresenter
+	public interface IMainFormPresenter
     {
         void AddWord();
         void DisplayNewWord();
         void ShowTranslation();
         void DeleteWord();
-        void Initialize();
-    }
+		void OnUserChanged(object? sender, string userName);
+	}
 
 }

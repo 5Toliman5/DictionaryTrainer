@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\DAL\DictionaryTrainer.DAL.csproj" />
     <ProjectReference Include="..\DictionaryTrainer.Domain\DictionaryTrainer.Domain.csproj" />
   </ItemGroup>
 

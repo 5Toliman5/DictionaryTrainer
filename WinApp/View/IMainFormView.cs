@@ -1,11 +1,14 @@
-﻿namespace DictionaryTrainer.WinApp.View
+﻿
+namespace DictionaryTrainer.WinApp.View
 {
     public interface IMainFormView
     {
         string InputTranslation { get; }
         string InputWord { get; }
 
-        void Clear();
+		event EventHandler<string> UserChanged;
+
+		void Clear();
         void ClearOutput();
         void DisplayNewWord(string word);
         void DisplayTranslation(string translation);
