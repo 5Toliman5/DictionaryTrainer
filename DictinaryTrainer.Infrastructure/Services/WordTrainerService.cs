@@ -1,11 +1,12 @@
 ﻿using Common.Extensions;
 using DictinaryTrainer.BusinessLogic.Models;
+using DictinaryTrainer.BusinessLogic.Services.Abstract;
 using DictionaryTrainer.DAL.EF;
 using DictionaryTrainer.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 namespace DictinaryTrainer.BusinessLogic.Services
 {
-	public class WordTrainerService : IWordTrainerService
+    public class WordTrainerService : IWordTrainerService
 	{
 		private readonly IDictionaryTrainerContext Context;
 		private readonly Random Random;

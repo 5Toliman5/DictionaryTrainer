@@ -6,7 +6,6 @@ namespace DictionaryTrainer.Domain.Entities;
 public class Word
 {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ID { get; set; }
     [Required, MaxLength(100)]
     public string Value { get; set; } = null!;

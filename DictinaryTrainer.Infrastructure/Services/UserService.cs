@@ -1,8 +1,9 @@
-﻿using DictionaryTrainer.DAL.EF;
+﻿using DictinaryTrainer.BusinessLogic.Services.Abstract;
+using DictionaryTrainer.DAL.EF;
 
 namespace DictinaryTrainer.BusinessLogic.Services
 {
-	public class UserService : IUserService
+    public class UserService : IUserService
 	{
 		private readonly IDictionaryTrainerContext Context;
 

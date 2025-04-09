@@ -1,4 +1,5 @@
 using DictinaryTrainer.BusinessLogic.Services;
+using DictinaryTrainer.BusinessLogic.Services.Abstract;
 using DictionaryTrainer.DAL.EF;
 using DictionaryTrainer.WinApp.Presenter;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace WinApp
 {
-	internal static class Program
+    internal static class Program
     {
         /// <summary>
         ///  The main entry point for the application.

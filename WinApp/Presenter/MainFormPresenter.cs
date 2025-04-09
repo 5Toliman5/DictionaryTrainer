@@ -1,12 +1,12 @@
 ﻿using Common.Extensions;
 using DictinaryTrainer.BusinessLogic.Models;
-using DictinaryTrainer.BusinessLogic.Services;
+using DictinaryTrainer.BusinessLogic.Services.Abstract;
 using DictionaryTrainer.WinApp.View;
 using WinApp.Infrastructure;
 
 namespace DictionaryTrainer.WinApp.Presenter
 {
-	public class MainFormPresenter : IMainFormPresenter
+    public class MainFormPresenter : IMainFormPresenter
     {
         private readonly IMainFormView View;
         private readonly IUserService UserService;

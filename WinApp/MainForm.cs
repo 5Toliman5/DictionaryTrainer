@@ -1,5 +1,4 @@
-
-using DictinaryTrainer.BusinessLogic.Services;
+using DictinaryTrainer.BusinessLogic.Services.Abstract;
 using DictionaryTrainer.WinApp.Infrastructure.Validation;
 using DictionaryTrainer.WinApp.Presenter;
 using DictionaryTrainer.WinApp.View;
@@ -9,7 +8,7 @@ using TextBox = System.Windows.Forms.TextBox;
 
 namespace WinApp
 {
-	public partial class MainForm : Form, IMainFormView
+    public partial class MainForm : Form, IMainFormView
 	{
 		private readonly IMainFormPresenter Presenter;
 		public event EventHandler<string> UserChanged;
