@@ -1,9 +1,11 @@
 using DictinaryTrainer.BusinessLogic.Services;
 using DictinaryTrainer.BusinessLogic.Services.Abstract;
-using DictionaryTrainer.DAL.EF;
+using DictionaryTrainer.DAL.Repositories;
+using DictionaryTrainer.DAL.Repositories.Abstract;
 using DictionaryTrainer.WinApp.Presenter;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
+using WinApp;
 
 namespace WinApp
 {
@@ -26,14 +28,14 @@ namespace WinApp
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<MainForm>();
-            var connString = System.Configuration.ConfigurationManager.AppSettings["ConnectionString"];
-            services.AddDbContext<DictionaryTrainerContext>(options => options.UseSqlServer(connString));
-			services.AddTransient<IDictionaryTrainerContext>(provider => provider.GetService<DictionaryTrainerContext>());
-			services.AddTransient<IUserService, UserService>();
-			services.AddTransient<IWordTrainerService, WordTrainerService>();
-			services.AddTransient<IMainFormPresenter, MainFormPresenter>();
 
+            var connString = ConfigurationManager.AppSettings["ConnectionString"];
+			services.AddScoped<IUserRepository>(x => new UserRepository(connString));
+			services.AddScoped<IWordRepository>(x => new WordRepository(connString));
 
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IWordTrainerService, WordTrainerService>();
+			services.AddScoped<IMainFormPresenter, MainFormPresenter>();
 		}
     }
 }

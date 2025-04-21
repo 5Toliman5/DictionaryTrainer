@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictinaryTrainer.BusinessLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DictionaryTraining.Database", "DictionaryTraining.Database\DictionaryTraining.Database.sqlproj", "{8AB77798-F91B-41C0-89CA-C210E57EABB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,12 @@ Global
 		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB77798-F91B-41C0-89CA-C210E57EABB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB77798-F91B-41C0-89CA-C210E57EABB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB77798-F91B-41C0-89CA-C210E57EABB1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8AB77798-F91B-41C0-89CA-C210E57EABB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB77798-F91B-41C0-89CA-C210E57EABB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB77798-F91B-41C0-89CA-C210E57EABB1}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

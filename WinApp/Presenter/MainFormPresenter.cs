@@ -11,7 +11,7 @@ namespace DictionaryTrainer.WinApp.Presenter
         private readonly IMainFormView View;
         private readonly IUserService UserService;
         private readonly IWordTrainerService WordTrainerService;
-        private short? UserId;
+        private int? UserId;
 		public MainFormPresenter(IMainFormView view, IUserService userService, IWordTrainerService wordTrainerService)
 		{
 			View = view;

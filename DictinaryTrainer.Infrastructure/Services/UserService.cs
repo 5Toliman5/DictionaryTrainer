@@ -1,20 +1,17 @@
 ﻿using DictinaryTrainer.BusinessLogic.Services.Abstract;
-using DictionaryTrainer.DAL.EF;
+using DictionaryTrainer.DAL.Repositories.Abstract;
 
 namespace DictinaryTrainer.BusinessLogic.Services
 {
     public class UserService : IUserService
 	{
-		private readonly IDictionaryTrainerContext Context;
+		private readonly IUserRepository Repository;
 
-		public UserService(IDictionaryTrainerContext context)
+		public UserService(IUserRepository repository)
 		{
-			Context = context;
+			Repository = repository;
 		}
 
-		public short? GetUserId(string userName)
-		{
-			return Context.Users.SingleOrDefault(x => x.Name == userName)?.ID;
-		}
+		public int? GetUserId(string userName) => Repository.GetUserId(userName);
 	}
 }

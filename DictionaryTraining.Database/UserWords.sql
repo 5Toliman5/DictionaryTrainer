@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[UserWords]
+(
+	[ID] INT NOT NULL PRIMARY KEY,
+	[UserId] [int] NOT NULL FOREIGN KEY REFERENCES Users(ID),
+	[WordId] [int] NOT NULL FOREIGN KEY REFERENCES Words(ID),
+	[Weight] [int] NOT NULL
+)

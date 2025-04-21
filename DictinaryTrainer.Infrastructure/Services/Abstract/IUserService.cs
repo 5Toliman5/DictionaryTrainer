@@ -2,6 +2,6 @@
 {
     public interface IUserService
     {
-        short? GetUserId(string userName);
-    }
+		int? GetUserId(string userName);
+	}
 }
