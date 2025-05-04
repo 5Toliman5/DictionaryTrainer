@@ -1,11 +1,11 @@
-﻿using DictinaryTrainer.BusinessLogic.Services.Abstract;
-using DictinaryTrainer.BusinessLogic.Services;
+﻿using DictinaryTrainer.BusinessLogic.Services;
 using DictionaryTrainer.DAL.Repositories.Abstract;
 using DictionaryTrainer.WinApp.Presenter;
 using Microsoft.Extensions.DependencyInjection;
 using WinApp;
 using System.Configuration;
 using DictionaryTrainer.DAL.Repositories;
+using DictionaryTrainer.Domain.Services;
 
 namespace DictionaryTrainer.WinApp
 {

@@ -104,6 +104,7 @@
 			DisplayTranslationTextBox.Size = new Size(609, 45);
 			DisplayTranslationTextBox.TabIndex = 3;
 			DisplayTranslationTextBox.TextAlign = HorizontalAlignment.Center;
+			DisplayTranslationTextBox.KeyDown += DisplayTranslationTextBox_KeyDown;
 			// 
 			// ShowNextButton
 			// 
@@ -134,6 +135,7 @@
 			DisplayWordTextBox.Size = new Size(609, 45);
 			DisplayWordTextBox.TabIndex = 0;
 			DisplayWordTextBox.TextAlign = HorizontalAlignment.Center;
+			DisplayWordTextBox.KeyDown += DisplayWordTextBox_KeyDown;
 			// 
 			// AddNewWordsPage
 			// 
@@ -199,6 +201,7 @@
 			InputTranslationTextBox.TabIndex = 1;
 			InputTranslationTextBox.Tag = "translation";
 			InputTranslationTextBox.TextChanged += TextBox_Validating;
+			InputTranslationTextBox.KeyDown += InputTranslationTextBox_KeyDown;
 			// 
 			// InputWordTextBox
 			// 
@@ -208,6 +211,7 @@
 			InputWordTextBox.TabIndex = 0;
 			InputWordTextBox.Tag = "word to learn";
 			InputWordTextBox.TextChanged += TextBox_Validating;
+			InputWordTextBox.KeyDown += InputWordTextBox_KeyDown;
 			// 
 			// UserPage
 			// 
@@ -216,10 +220,10 @@
 			UserPage.Controls.Add(CurrentUserTextBox);
 			UserPage.Controls.Add(CurrentUserLabel);
 			UserPage.ForeColor = Color.Black;
-			UserPage.Location = new Point(4, 35);
+			UserPage.Location = new Point(4, 24);
 			UserPage.Name = "UserPage";
 			UserPage.Padding = new Padding(3);
-			UserPage.Size = new Size(791, 324);
+			UserPage.Size = new Size(791, 335);
 			UserPage.TabIndex = 2;
 			UserPage.Text = "Select user";
 			// 

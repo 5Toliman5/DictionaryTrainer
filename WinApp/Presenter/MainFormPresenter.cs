@@ -1,6 +1,5 @@
-﻿using Common.Extensions;
-using DictinaryTrainer.BusinessLogic.Models;
-using DictinaryTrainer.BusinessLogic.Services.Abstract;
+﻿using DictionaryTrainer.Domain.Models;
+using DictionaryTrainer.Domain.Services;
 using DictionaryTrainer.WinApp.View;
 using WinApp.Infrastructure;
 

@@ -1,4 +1,4 @@
-using DictinaryTrainer.BusinessLogic.Services.Abstract;
+using DictionaryTrainer.Domain.Services;
 using DictionaryTrainer.WinApp.Infrastructure.Validation;
 using DictionaryTrainer.WinApp.Presenter;
 using DictionaryTrainer.WinApp.View;
@@ -8,7 +8,7 @@ using TextBox = System.Windows.Forms.TextBox;
 
 namespace WinApp
 {
-    public partial class MainForm : Form, IMainFormView
+	public partial class MainForm : Form, IMainFormView
 	{
 		private readonly IMainFormPresenter Presenter;
 
@@ -21,7 +21,7 @@ namespace WinApp
 			InitializeComponent();
 			SetUserOnInitialize();
 		}
-		
+
 		public bool ValidateInput(List<TextBox> textboxes)
 		{
 			foreach (var textBox in textboxes)
@@ -89,5 +89,41 @@ namespace WinApp
 		private void ShowTranslationButton_Click(object sender, EventArgs e) => Presenter.ShowTranslation();
 
 		private void DeleteWordButton_Click(object sender, EventArgs e) => Presenter.DeleteWord();
+
+		private void InputTranslationTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode is Keys.Down or Keys.Up)
+			{
+				InputWordTextBox.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void InputWordTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode is Keys.Down or Keys.Up)
+			{
+				InputTranslationTextBox.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void DisplayWordTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode is Keys.Down or Keys.Up)
+			{
+				DisplayTranslationTextBox.Focus();
+				e.Handled = true;
+			}
+		}
+
+		private void DisplayTranslationTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode is Keys.Down or Keys.Up)
+			{
+				DisplayWordTextBox.Focus();
+				e.Handled = true;
+			}
+		}
 	}
 }

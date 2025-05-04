@@ -20,28 +20,57 @@ namespace DictionaryTrainer.DAL.Repositories
 		{
 			using var connection = new SqlConnection(ConnectionString);
 			connection.Open();
-			return connection.Query<Word>(WordSqlQueries.SelectAllWords, new { UserId = userId }).ToList();
+			var words = connection.Query<Word>(WordSqlQueries.SelectAllWords, new { UserId = userId });			
+			connection.Close();
+			return words.ToList();
 		}
 
 		public void AddWord(AddWordModel model)
 		{
 			using var connection = new SqlConnection(ConnectionString);
 			connection.Open();
-			var insertedWordId = connection.ExecuteScalar<int>(WordSqlQueries.InsertWord, model.Word);
-			connection.Execute(WordSqlQueries.InsertUserWord, new UpdateWordModel(insertedWordId, model.UserId));
+			using var transaction = connection.BeginTransaction();
+			try
+			{
+				var insertedWordId = connection.ExecuteScalar<int>(WordSqlQueries.InsertWord, model.Word, transaction);
+				connection.Execute(WordSqlQueries.InsertUserWord, new UpdateWordModel(insertedWordId, model.UserId), transaction);
+				transaction.Commit();
+			}
+			catch
+			{
+				transaction.Rollback();
+				throw;
+			}
+			finally
+			{
+				connection.Close();
+			}
 		}
 
 		public void DeleteWord(UpdateWordModel model)
 		{
 			using var connection = new SqlConnection(ConnectionString);
 			connection.Open();
-
-			connection.Execute(WordSqlQueries.DeleteUserWord, model);
-
-			var userCount = connection.ExecuteScalar<int>(WordSqlQueries.SelectUserCountOfWord, model);
-			if (userCount == 0)
+			using var transaction = connection.BeginTransaction();
+			try
 			{
-				connection.Execute(WordSqlQueries.DeleteWord, model.WordId);
+				connection.Execute(WordSqlQueries.DeleteUserWord, model, transaction);
+
+				var userCount = connection.ExecuteScalar<int>(WordSqlQueries.SelectUserCountOfWord, model, transaction);
+				if (userCount == 0)
+				{
+					connection.Execute(WordSqlQueries.DeleteWord, model.WordId, transaction);
+				}
+				transaction.Commit();
+			}
+			catch
+			{
+				transaction.Rollback();
+				throw;
+			}
+			finally
+			{
+				connection.Close();
 			}
 		}
 
@@ -50,6 +79,7 @@ namespace DictionaryTrainer.DAL.Repositories
 			using var connection = new SqlConnection(ConnectionString);
 			connection.Open();
 			connection.Execute(WordSqlQueries.UpdateWordWeight, model);
+			connection.Close();
 		}
 	}
 }

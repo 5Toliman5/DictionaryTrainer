@@ -1,5 +1,5 @@
-﻿using DictinaryTrainer.BusinessLogic.Services.Abstract;
-using DictionaryTrainer.DAL.Repositories.Abstract;
+﻿using DictionaryTrainer.DAL.Repositories.Abstract;
+using DictionaryTrainer.Domain.Services;
 
 namespace DictinaryTrainer.BusinessLogic.Services
 {

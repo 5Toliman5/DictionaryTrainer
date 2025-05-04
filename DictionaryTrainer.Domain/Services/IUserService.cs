@@ -1,4 +1,4 @@
-﻿namespace DictinaryTrainer.BusinessLogic.Services.Abstract
+﻿namespace DictionaryTrainer.Domain.Services
 {
     public interface IUserService
     {

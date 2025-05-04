@@ -1,8 +1,8 @@
 ﻿using Common.Extensions;
-using DictinaryTrainer.BusinessLogic.Models;
-using DictinaryTrainer.BusinessLogic.Services.Abstract;
 using DictionaryTrainer.DAL.Repositories.Abstract;
 using DictionaryTrainer.Domain.Entities;
+using DictionaryTrainer.Domain.Models;
+using DictionaryTrainer.Domain.Services;
 namespace DictinaryTrainer.BusinessLogic.Services
 {
     public class WordTrainerService : IWordTrainerService

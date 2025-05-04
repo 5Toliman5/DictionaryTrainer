@@ -2,6 +2,6 @@
 {
 	public class UserDictionary : EntityBase
 	{
-		// TODO: implement possibility to have several dictionaries
+		// TODO: implement the possibility to have several dictionaries
 	}
 }

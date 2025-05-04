@@ -1,6 +1,6 @@
-﻿using DictinaryTrainer.BusinessLogic.Models;
+﻿using DictionaryTrainer.Domain.Models;
 
-namespace DictinaryTrainer.BusinessLogic.Services.Abstract
+namespace DictionaryTrainer.Domain.Services
 {
     public interface IWordTrainerService
     {
