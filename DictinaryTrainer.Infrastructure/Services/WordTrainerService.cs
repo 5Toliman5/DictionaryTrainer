@@ -54,7 +54,7 @@ namespace DictinaryTrainer.BusinessLogic.Services
 			if (!CurrentUserId.HasValue)
 				throw new Exception("Current user is not specified!");
 
-			var existingWord = Words.SingleOrDefault(x => x.Value == word.Value);
+			var existingWord = GetExistingWord(word);
 			if (existingWord is not null)
 			{
 				Words.Remove(existingWord);
@@ -86,5 +86,9 @@ namespace DictinaryTrainer.BusinessLogic.Services
 			CurrentWord = null;
 		}
 
+		private Word? GetExistingWord(WordDto newWord)
+		{
+			return Words.SingleOrDefault(x => x.Value.Equals(newWord.Value, StringComparison.CurrentCultureIgnoreCase));
+		}
 	}
 }
