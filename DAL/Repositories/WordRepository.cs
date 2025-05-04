@@ -33,7 +33,7 @@ namespace DictionaryTrainer.DAL.Repositories
 			try
 			{
 				var insertedWordId = connection.ExecuteScalar<int>(WordSqlQueries.InsertWord, model.Word, transaction);
-				connection.Execute(WordSqlQueries.InsertUserWord, new UpdateWordModel(insertedWordId, model.UserId), transaction);
+				connection.Execute(WordSqlQueries.InsertUserWord, new EditWordModel(insertedWordId, model.UserId), transaction);
 				transaction.Commit();
 			}
 			catch
@@ -47,7 +47,7 @@ namespace DictionaryTrainer.DAL.Repositories
 			}
 		}
 
-		public void DeleteWord(UpdateWordModel model)
+		public void DeleteWord(EditWordModel model)
 		{
 			using var connection = new SqlConnection(ConnectionString);
 			connection.Open();
@@ -59,7 +59,7 @@ namespace DictionaryTrainer.DAL.Repositories
 				var userCount = connection.ExecuteScalar<int>(WordSqlQueries.SelectUserCountOfWord, model, transaction);
 				if (userCount == 0)
 				{
-					connection.Execute(WordSqlQueries.DeleteWord, model.WordId, transaction);
+					connection.Execute(WordSqlQueries.DeleteWord, model, transaction);
 				}
 				transaction.Commit();
 			}
@@ -74,7 +74,7 @@ namespace DictionaryTrainer.DAL.Repositories
 			}
 		}
 
-		public void UpdateWordWeight(UpdateWordModel model)
+		public void UpdateWordWeight(EditWordModel model)
 		{
 			using var connection = new SqlConnection(ConnectionString);
 			connection.Open();

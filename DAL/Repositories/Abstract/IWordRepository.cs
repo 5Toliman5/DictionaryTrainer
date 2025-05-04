@@ -9,8 +9,8 @@ namespace DictionaryTrainer.DAL.Repositories.Abstract
 
 		void AddWord(AddWordModel model);
 
-		void DeleteWord(UpdateWordModel model);
+		void DeleteWord(EditWordModel model);
 
-		void UpdateWordWeight(UpdateWordModel model);
+		void UpdateWordWeight(EditWordModel model);
 	}
 }

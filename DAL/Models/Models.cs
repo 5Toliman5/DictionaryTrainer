@@ -4,5 +4,5 @@ namespace DictionaryTrainer.DAL.Models
 {
 	public record AddWordModel(Word Word, int UserId);
 
-	public record UpdateWordModel(int WordId, int UserId);
+	public record EditWordModel(int WordId, int UserId);
 }

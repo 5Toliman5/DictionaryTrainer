@@ -8,7 +8,7 @@ namespace DictionaryTrainer.DAL.SqlQueries
 		#region Words
 		public const string InsertWord = $"INSERT INTO Words(Value, Translation) OUTPUT INSERTED.ID VALUES(@{nameof(Word.Value)},@{nameof(Word.Translation)})";
 
-		public const string DeleteWord = "DELETE FROM Words WHERE WordId = @WordId)";
+		public const string DeleteWord = $"DELETE FROM Words WHERE Id = @{nameof(EditWordModel.WordId)}";
 
 		public const string SelectAllWords = "SELECT w.* FROM Words w JOIN UserWords uw on w.ID = uw.WordId WHERE uw.UserId = @UserId";
 		#endregion
@@ -20,9 +20,9 @@ namespace DictionaryTrainer.DAL.SqlQueries
 
 		public const string SelectUserCountOfWord = $"SELECT COUNT(*) FROM UserWords" + UserWordsWhereClause;
 
-		public const string InsertUserWord = $"INSERT INTO UserWords(WordId, UserId, Weight) VALUES(@{nameof(UpdateWordModel.WordId)}, @{nameof(UpdateWordModel.UserId)}, 0)";
+		public const string InsertUserWord = $"INSERT INTO UserWords(WordId, UserId, Weight) VALUES(@{nameof(EditWordModel.WordId)}, @{nameof(EditWordModel.UserId)}, 0)";
 
-		private const string UserWordsWhereClause = $" WHERE WordId = @{nameof(UpdateWordModel.WordId)} and UserId = @{nameof(UpdateWordModel.UserId)}"; 
+		private const string UserWordsWhereClause = $" WHERE WordId = @{nameof(EditWordModel.WordId)} and UserId = @{nameof(EditWordModel.UserId)}"; 
 		#endregion
 	}
 }
