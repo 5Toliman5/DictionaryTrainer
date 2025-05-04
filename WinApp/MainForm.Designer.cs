@@ -45,10 +45,10 @@
 			InputTranslationTextBox = new TextBox();
 			InputWordTextBox = new TextBox();
 			UserPage = new TabPage();
+			textBox1 = new TextBox();
 			CurrentUserTextBox = new TextBox();
 			CurrentUserLabel = new Label();
 			AddWordsErrorProvider = new ErrorProvider(components);
-			textBox1 = new TextBox();
 			MainTabControl.SuspendLayout();
 			TrainYourselfPage.SuspendLayout();
 			AddNewWordsPage.SuspendLayout();
@@ -81,7 +81,7 @@
 			TrainYourselfPage.Padding = new Padding(3);
 			TrainYourselfPage.Size = new Size(791, 324);
 			TrainYourselfPage.TabIndex = 0;
-			TrainYourselfPage.Text = "Train yourself!";
+			TrainYourselfPage.Text = "Train yourself";
 			TrainYourselfPage.Enter += TrainYourselfPage_Enter;
 			// 
 			// DeleteWordButton
@@ -145,12 +145,12 @@
 			AddNewWordsPage.Controls.Add(InputTranslationTextBox);
 			AddNewWordsPage.Controls.Add(InputWordTextBox);
 			AddNewWordsPage.ForeColor = Color.Black;
-			AddNewWordsPage.Location = new Point(4, 24);
+			AddNewWordsPage.Location = new Point(4, 35);
 			AddNewWordsPage.Name = "AddNewWordsPage";
 			AddNewWordsPage.Padding = new Padding(3);
-			AddNewWordsPage.Size = new Size(791, 335);
+			AddNewWordsPage.Size = new Size(791, 324);
 			AddNewWordsPage.TabIndex = 1;
-			AddNewWordsPage.Text = "Add new words!";
+			AddNewWordsPage.Text = "Add new words";
 			// 
 			// AddDataButton
 			// 
@@ -221,7 +221,17 @@
 			UserPage.Padding = new Padding(3);
 			UserPage.Size = new Size(791, 324);
 			UserPage.TabIndex = 2;
-			UserPage.Text = "User";
+			UserPage.Text = "Select user";
+			// 
+			// textBox1
+			// 
+			textBox1.Location = new Point(6, 78);
+			textBox1.Multiline = true;
+			textBox1.Name = "textBox1";
+			textBox1.ReadOnly = true;
+			textBox1.Size = new Size(379, 153);
+			textBox1.TabIndex = 13;
+			textBox1.Text = "TO IMPLEMENT:\r\n1. USERS\r\n2. DICTIONARY\r\n3. WEIGHT LOGIC";
 			// 
 			// CurrentUserTextBox
 			// 
@@ -246,15 +256,6 @@
 			// AddWordsErrorProvider
 			// 
 			AddWordsErrorProvider.ContainerControl = this;
-			// 
-			// textBox1
-			// 
-			textBox1.Location = new Point(6, 78);
-			textBox1.Multiline = true;
-			textBox1.Name = "textBox1";
-			textBox1.Size = new Size(379, 153);
-			textBox1.TabIndex = 13;
-			textBox1.Text = "TO IMPLEMENT:\r\n1. USERS\r\n2. DICTIONARY\r\n3. WEIGHT LOGIC";
 			// 
 			// MainForm
 			// 
