@@ -46,7 +46,6 @@ namespace DictinaryTrainer.BusinessLogic.Services
 
 			CurrentWord = Words[Random.Next(Words.Count)];
 			return new(CurrentWord.Value, CurrentWord.Translation);
-
 		}
 
 		public void AddWord(WordDto word)

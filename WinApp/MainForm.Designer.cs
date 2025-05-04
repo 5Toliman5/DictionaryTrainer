@@ -48,6 +48,7 @@
 			CurrentUserTextBox = new TextBox();
 			CurrentUserLabel = new Label();
 			AddWordsErrorProvider = new ErrorProvider(components);
+			textBox1 = new TextBox();
 			MainTabControl.SuspendLayout();
 			TrainYourselfPage.SuspendLayout();
 			AddNewWordsPage.SuspendLayout();
@@ -211,6 +212,7 @@
 			// UserPage
 			// 
 			UserPage.BackColor = Color.Transparent;
+			UserPage.Controls.Add(textBox1);
 			UserPage.Controls.Add(CurrentUserTextBox);
 			UserPage.Controls.Add(CurrentUserLabel);
 			UserPage.ForeColor = Color.Black;
@@ -244,6 +246,15 @@
 			// AddWordsErrorProvider
 			// 
 			AddWordsErrorProvider.ContainerControl = this;
+			// 
+			// textBox1
+			// 
+			textBox1.Location = new Point(6, 78);
+			textBox1.Multiline = true;
+			textBox1.Name = "textBox1";
+			textBox1.Size = new Size(379, 153);
+			textBox1.TabIndex = 13;
+			textBox1.Text = "TO IMPLEMENT:\r\n1. USERS\r\n2. DICTIONARY\r\n3. WEIGHT LOGIC";
 			// 
 			// MainForm
 			// 
@@ -292,5 +303,6 @@
         private TabPage UserPage;
         private Label CurrentUserLabel;
 		private TextBox CurrentUserTextBox;
+		private TextBox textBox1;
 	}
 }
