@@ -235,7 +235,7 @@
 			textBox1.ReadOnly = true;
 			textBox1.Size = new Size(437, 153);
 			textBox1.TabIndex = 13;
-			textBox1.Text = "TO IMPLEMENT:\r\n1. MULTIPLE USERS\r\n2. MULTIPLE DICTIONARIES PER USER\r\n3. WEIGHT ALGORITHM";
+			textBox1.Text = "TO IMPLEMENT:\r\n1. MULTIPLE USERS\r\n2. MULTIPLE DICTIONARIES PER USER\r\n3. WEIGHT ALGORITHM\r\n4. MY WORDS PAGE";
 			// 
 			// CurrentUserTextBox
 			// 
