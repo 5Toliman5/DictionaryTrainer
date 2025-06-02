@@ -147,10 +147,10 @@
 			AddNewWordsPage.Controls.Add(InputTranslationTextBox);
 			AddNewWordsPage.Controls.Add(InputWordTextBox);
 			AddNewWordsPage.ForeColor = Color.Black;
-			AddNewWordsPage.Location = new Point(4, 35);
+			AddNewWordsPage.Location = new Point(4, 24);
 			AddNewWordsPage.Name = "AddNewWordsPage";
 			AddNewWordsPage.Padding = new Padding(3);
-			AddNewWordsPage.Size = new Size(791, 324);
+			AddNewWordsPage.Size = new Size(791, 335);
 			AddNewWordsPage.TabIndex = 1;
 			AddNewWordsPage.Text = "Add new words";
 			// 
@@ -220,10 +220,10 @@
 			UserPage.Controls.Add(CurrentUserTextBox);
 			UserPage.Controls.Add(CurrentUserLabel);
 			UserPage.ForeColor = Color.Black;
-			UserPage.Location = new Point(4, 24);
+			UserPage.Location = new Point(4, 35);
 			UserPage.Name = "UserPage";
 			UserPage.Padding = new Padding(3);
-			UserPage.Size = new Size(791, 335);
+			UserPage.Size = new Size(791, 324);
 			UserPage.TabIndex = 2;
 			UserPage.Text = "Select user";
 			// 
@@ -233,9 +233,9 @@
 			textBox1.Multiline = true;
 			textBox1.Name = "textBox1";
 			textBox1.ReadOnly = true;
-			textBox1.Size = new Size(379, 153);
+			textBox1.Size = new Size(437, 153);
 			textBox1.TabIndex = 13;
-			textBox1.Text = "TO IMPLEMENT:\r\n1. USERS\r\n2. DICTIONARY\r\n3. WEIGHT LOGIC";
+			textBox1.Text = "TO IMPLEMENT:\r\n1. MULTIPLE USERS\r\n2. MULTIPLE DICTIONARIES PER USER\r\n3. WEIGHT ALGORITHM";
 			// 
 			// CurrentUserTextBox
 			// 
