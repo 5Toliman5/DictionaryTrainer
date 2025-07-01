@@ -1,17 +1,10 @@
 ﻿using DictionaryTrainer.DAL.Repositories.Abstract;
 using DictionaryTrainer.Domain.Services;
 
-namespace DictinaryTrainer.BusinessLogic.Services
+namespace DictionaryTrainer.BusinessLogic.Services
 {
-    public class UserService : IUserService
+    public class UserService(IUserRepository repository) : IUserService
 	{
-		private readonly IUserRepository Repository;
-
-		public UserService(IUserRepository repository)
-		{
-			Repository = repository;
-		}
-
-		public int? GetUserId(string userName) => Repository.GetUserId(userName);
+		public int? GetUserId(string userName) => repository.GetUserId(userName);
 	}
 }

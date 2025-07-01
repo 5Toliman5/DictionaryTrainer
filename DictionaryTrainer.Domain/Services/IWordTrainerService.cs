@@ -4,7 +4,9 @@ namespace DictionaryTrainer.Domain.Services
 {
     public interface IWordTrainerService
     {
-        void AddWord(WordDto word);
+        int GetWordsCount();
+
+		void AddWord(WordDto word);
 
         void DeleteCurrentWord();
 
@@ -12,7 +14,7 @@ namespace DictionaryTrainer.Domain.Services
 
         WordDto? GetNewWord();
 
-        int LoadAllWords();
+		void LoadWords();
 
         void SetUser(int userId);
 

@@ -82,7 +82,7 @@
 			TrainYourselfPage.Size = new Size(791, 324);
 			TrainYourselfPage.TabIndex = 0;
 			TrainYourselfPage.Text = "Train yourself";
-			TrainYourselfPage.Enter += TrainYourselfPage_Enter;
+			TrainYourselfPage.Enter += TrainYourSelfPageEnter;
 			// 
 			// DeleteWordButton
 			// 
@@ -92,7 +92,7 @@
 			DeleteWordButton.TabIndex = 4;
 			DeleteWordButton.Text = "Delete";
 			DeleteWordButton.UseVisualStyleBackColor = true;
-			DeleteWordButton.Click += DeleteWordButton_Click;
+			DeleteWordButton.Click += DeleteWord;
 			// 
 			// DisplayTranslationTextBox
 			// 
@@ -104,7 +104,7 @@
 			DisplayTranslationTextBox.Size = new Size(609, 45);
 			DisplayTranslationTextBox.TabIndex = 3;
 			DisplayTranslationTextBox.TextAlign = HorizontalAlignment.Center;
-			DisplayTranslationTextBox.KeyDown += DisplayTranslationTextBox_KeyDown;
+			DisplayTranslationTextBox.KeyDown += TextBox_SwitchFocus;
 			// 
 			// ShowNextButton
 			// 
@@ -114,7 +114,7 @@
 			ShowNextButton.TabIndex = 2;
 			ShowNextButton.Text = "I remember!";
 			ShowNextButton.UseVisualStyleBackColor = true;
-			ShowNextButton.Click += ShowNextButton_Click;
+			ShowNextButton.Click += ShowNextWord;
 			// 
 			// ShowTranslationButton
 			// 
@@ -124,7 +124,7 @@
 			ShowTranslationButton.TabIndex = 1;
 			ShowTranslationButton.Text = "Translation";
 			ShowTranslationButton.UseVisualStyleBackColor = true;
-			ShowTranslationButton.Click += ShowTranslationButton_Click;
+			ShowTranslationButton.Click += ShowTranslation;
 			// 
 			// DisplayWordTextBox
 			// 
@@ -135,7 +135,7 @@
 			DisplayWordTextBox.Size = new Size(609, 45);
 			DisplayWordTextBox.TabIndex = 0;
 			DisplayWordTextBox.TextAlign = HorizontalAlignment.Center;
-			DisplayWordTextBox.KeyDown += DisplayWordTextBox_KeyDown;
+			DisplayWordTextBox.KeyDown += TextBox_SwitchFocus;
 			// 
 			// AddNewWordsPage
 			// 
@@ -164,7 +164,7 @@
 			AddDataButton.TabIndex = 7;
 			AddDataButton.Text = "Add the data!";
 			AddDataButton.UseVisualStyleBackColor = false;
-			AddDataButton.Click += AddDataButton_Click;
+			AddDataButton.Click += AddNewWord;
 			// 
 			// EnterHereLabel
 			// 
@@ -200,8 +200,8 @@
 			InputTranslationTextBox.Size = new Size(593, 34);
 			InputTranslationTextBox.TabIndex = 1;
 			InputTranslationTextBox.Tag = "translation";
-			InputTranslationTextBox.TextChanged += TextBox_Validating;
-			InputTranslationTextBox.KeyDown += InputTranslationTextBox_KeyDown;
+			InputTranslationTextBox.TextChanged += ValidateTextBox;
+			InputTranslationTextBox.KeyDown += TextBox_SwitchFocus;
 			// 
 			// InputWordTextBox
 			// 
@@ -210,8 +210,8 @@
 			InputWordTextBox.Size = new Size(593, 34);
 			InputWordTextBox.TabIndex = 0;
 			InputWordTextBox.Tag = "word to learn";
-			InputWordTextBox.TextChanged += TextBox_Validating;
-			InputWordTextBox.KeyDown += InputWordTextBox_KeyDown;
+			InputWordTextBox.TextChanged += ValidateTextBox;
+			InputWordTextBox.KeyDown += TextBox_SwitchFocus;
 			// 
 			// UserPage
 			// 

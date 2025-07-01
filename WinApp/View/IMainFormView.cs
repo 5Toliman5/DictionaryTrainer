@@ -3,26 +3,32 @@ namespace DictionaryTrainer.WinApp.View
 {
     public interface IMainFormView
     {
-        string InputTranslation { get; }
+		event EventHandler<string> UserChanged;
+
+		event EventHandler? AddWordRequested;
+
+		event EventHandler? DeleteWordRequested;
+
+		event EventHandler? ShowNextWordRequested;
+
+		event EventHandler? ShowTranslationRequested;
+
+		string InputTranslation { get; }
 
         string InputWord { get; }
 
-		event EventHandler<string> UserChanged;
+		void ClearAddWordInput();
 
-		void Clear();
-
-        void ClearOutput();
+        void ClearShowWordOutput();
 
         void DisplayNewWord(string word);
 
         void DisplayTranslation(string translation);
 
-        List<TextBox> GetAddDataInputsList();
-
-        void SetNextButtonText(string text);
+        void SetShowNextButtonText(string text);
 
         void ShowError(string message);
 
-        bool ValidateInput(List<TextBox> textboxes);
+        bool ValidateAddWordInput();
     }
 }

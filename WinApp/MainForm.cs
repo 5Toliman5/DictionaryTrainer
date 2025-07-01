@@ -1,8 +1,5 @@
-using DictionaryTrainer.Domain.Services;
 using DictionaryTrainer.WinApp.Infrastructure.Validation;
-using DictionaryTrainer.WinApp.Presenter;
 using DictionaryTrainer.WinApp.View;
-using Microsoft.IdentityModel.Tokens;
 using WinApp.Infrastructure;
 using TextBox = System.Windows.Forms.TextBox;
 
@@ -10,23 +7,27 @@ namespace WinApp
 {
 	public partial class MainForm : Form, IMainFormView
 	{
-		private readonly IMainFormPresenter Presenter;
-
-		public event EventHandler<string> UserChanged;
-
-		public MainForm(IUserService userService, IWordTrainerService wordTrainerService)
+		public MainForm()
 		{
-			Presenter = new MainFormPresenter(this, userService, wordTrainerService);
-			UserChanged = Presenter.OnUserChanged;
 			InitializeComponent();
-			SetUserOnInitialize();
 		}
 
-		public bool ValidateInput(List<TextBox> textboxes)
+		public event EventHandler<string>? UserChanged;
+		public event EventHandler? AddWordRequested;
+		public event EventHandler? ShowNextWordRequested;
+		public event EventHandler? ShowTranslationRequested;
+		public event EventHandler? DeleteWordRequested;
+
+		public string InputWord => InputWordTextBox.Text;
+
+		public string InputTranslation => InputTranslationTextBox.Text;
+
+		public bool ValidateAddWordInput()
 		{
-			foreach (var textBox in textboxes)
+			TextBox[] inputTextBoxes = [InputWordTextBox, InputTranslationTextBox];
+			foreach (var textBox in inputTextBoxes)
 			{
-				if (textBox.Text.IsNullOrEmpty())
+				if (string.IsNullOrEmpty(textBox.Text))
 				{
 					AddWordsErrorProvider.SetError(textBox, string.Format(Constants.EmptyInput, textBox.Tag));
 					return false;
@@ -35,25 +36,18 @@ namespace WinApp
 			return true;
 		}
 
-		public void Clear()
+		public void ClearAddWordInput()
 		{
 			InputWordTextBox.Text = string.Empty;
 			InputTranslationTextBox.Text = string.Empty;
 			AddWordsErrorProvider.Clear();
-
 		}
 
-		public void ClearOutput()
+		public void ClearShowWordOutput()
 		{
 			DisplayWordTextBox.Text = string.Empty;
 			DisplayTranslationTextBox.Text = string.Empty;
 		}
-
-		public string InputWord => InputWordTextBox.Text;
-
-		public string InputTranslation => InputTranslationTextBox.Text;
-
-		public List<TextBox> GetAddDataInputsList() => [InputWordTextBox, InputTranslationTextBox];
 
 		public void ShowError(string message) => MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -61,16 +55,9 @@ namespace WinApp
 
 		public void DisplayTranslation(string translation) => DisplayTranslationTextBox.Text = translation;
 
-		public void SetNextButtonText(string text) => ShowNextButton.Text = text;
+		public void SetShowNextButtonText(string text) => ShowNextButton.Text = text;
 
-		private void SetUserOnInitialize()
-		{
-			var userName = CurrentUserTextBox.Text;
-			if (!string.IsNullOrEmpty(userName))
-				UserChanged.Invoke(this, userName);
-		}
-
-		private void TextBox_Validating(object sender, EventArgs e)
+		private void ValidateTextBox(object sender, EventArgs e)
 		{
 			var textBox = (TextBox)sender;
 			if (!MainFormValidator.ValidateTextBoxInput(textBox))
@@ -80,48 +67,45 @@ namespace WinApp
 			}
 		}
 
-		private void AddDataButton_Click(object sender, EventArgs e) => Presenter.AddWord();
-
-		private void TrainYourselfPage_Enter(object sender, EventArgs e) => Presenter.DisplayNewWord();
-
-		private void ShowNextButton_Click(object sender, EventArgs e) => Presenter.DisplayNewWord();
-
-		private void ShowTranslationButton_Click(object sender, EventArgs e) => Presenter.ShowTranslation();
-
-		private void DeleteWordButton_Click(object sender, EventArgs e) => Presenter.DeleteWord();
-
-		private void InputTranslationTextBox_KeyDown(object sender, KeyEventArgs e)
+		private void TrainYourSelfPageEnter(object sender, EventArgs e)
 		{
-			if (e.KeyCode is Keys.Down or Keys.Up)
+			var userName = CurrentUserTextBox.Text;
+			if (!string.IsNullOrEmpty(userName))
 			{
-				InputWordTextBox.Focus();
-				e.Handled = true;
+				UserChanged?.Invoke(this, userName);
+				ShowNextWordRequested?.Invoke(sender, e);
+			}
+			else
+			{
+				// TODO: request the user to log in
 			}
 		}
 
-		private void InputWordTextBox_KeyDown(object sender, KeyEventArgs e)
+		private void AddNewWord(object sender, EventArgs e) => AddWordRequested?.Invoke(sender, e);
+
+		private void ShowNextWord(object sender, EventArgs e) => ShowNextWordRequested?.Invoke(sender, e);
+
+		private void ShowTranslation(object sender, EventArgs e) => ShowTranslationRequested?.Invoke(sender, e);
+
+		private void DeleteWord(object sender, EventArgs e)
 		{
-			if (e.KeyCode is Keys.Down or Keys.Up)
-			{
-				InputTranslationTextBox.Focus();
-				e.Handled = true;
-			}
+			DeleteWordRequested?.Invoke(sender, e);
+			ShowNextWordRequested?.Invoke(sender, e);
 		}
 
-		private void DisplayWordTextBox_KeyDown(object sender, KeyEventArgs e)
+		private void TextBox_SwitchFocus(object? sender, KeyEventArgs e)
 		{
-			if (e.KeyCode is Keys.Down or Keys.Up)
+			if (e.KeyCode is Keys.Up or Keys.Down)
 			{
-				DisplayTranslationTextBox.Focus();
-				e.Handled = true;
-			}
-		}
+				if (sender == InputWordTextBox)
+					InputTranslationTextBox.Focus();
+				else if (sender == InputTranslationTextBox)
+					InputWordTextBox.Focus();
+				else if (sender == DisplayWordTextBox)
+					DisplayTranslationTextBox.Focus();
+				else if (sender == DisplayTranslationTextBox)
+					DisplayWordTextBox.Focus();
 
-		private void DisplayTranslationTextBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode is Keys.Down or Keys.Up)
-			{
-				DisplayWordTextBox.Focus();
 				e.Handled = true;
 			}
 		}

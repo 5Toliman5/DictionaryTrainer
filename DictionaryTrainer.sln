@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryTrainer.DAL", "DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryTrainer.Domain", "DictionaryTrainer.Domain\DictionaryTrainer.Domain.csproj", "{6BEF5A63-A141-4D95-B9CA-E6F8E6572AD2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictinaryTrainer.BusinessLogic", "DictinaryTrainer.Infrastructure\DictinaryTrainer.BusinessLogic.csproj", "{CC37E9CF-B582-4A20-9E39-9CB052C26E53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DictionaryTrainer.BusinessLogic", "DictinaryTrainer.Infrastructure\DictionaryTrainer.BusinessLogic.csproj", "{CC37E9CF-B582-4A20-9E39-9CB052C26E53}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BEC9CDD9-3C75-462B-A36D-0937F2F6723D}"
 EndProject

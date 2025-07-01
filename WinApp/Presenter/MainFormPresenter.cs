@@ -5,19 +5,31 @@ using WinApp.Infrastructure;
 
 namespace DictionaryTrainer.WinApp.Presenter
 {
-    public class MainFormPresenter : IMainFormPresenter
-    {
+	public class MainFormPresenter
+	{
         private readonly IMainFormView View;
         private readonly IUserService UserService;
         private readonly IWordTrainerService WordTrainerService;
         private int? UserId;
+
 		public MainFormPresenter(IMainFormView view, IUserService userService, IWordTrainerService wordTrainerService)
 		{
 			View = view;
 			UserService = userService;
 			WordTrainerService = wordTrainerService;
+			SubscribeToEvents();
 		}
-		public void OnUserChanged(object? sender, string userName)
+
+		private void SubscribeToEvents()
+		{
+			View.UserChanged += OnUserChanged;
+			View.AddWordRequested += OnAddWordRequested;
+			View.ShowNextWordRequested += OnShowNextWordRequested;
+			View.ShowTranslationRequested += OnShowTranslationRequested;
+			View.DeleteWordRequested += OnDeleteWordRequested;
+		}
+
+		private void OnUserChanged(object? sender, string userName)
 		{
 			UserId = UserService.GetUserId(userName);
 			if (!ValidateUser()) 
@@ -25,32 +37,37 @@ namespace DictionaryTrainer.WinApp.Presenter
 			WordTrainerService.SetUser(UserId.Value);
 		}
 
-		public void AddWord()
+		private void OnAddWordRequested(object? sender, EventArgs e)
         {
-			if (!View.ValidateInput(View.GetAddDataInputsList()))
+			if (!View.ValidateAddWordInput())
 				return;
 			
 			if (!ValidateUser())
 				return;
+
 			var word = new WordDto(View.InputWord, View.InputTranslation);
 			WordTrainerService.AddWord(word);
-			View.Clear();
+			View.ClearAddWordInput();
 		}
-        public void DisplayNewWord()
+
+		private void OnShowNextWordRequested(object? sender, EventArgs e)
         {
-			View.ClearOutput();
+			View.ClearShowWordOutput();
 			if (!UserId.HasValue)
 				return;
-            var wordsCount = WordTrainerService.LoadAllWords();
-            if (wordsCount == 0)
-                View.ShowError(Constants.NoWordsFoundError);
 
 			var word = WordTrainerService.GetNewWord();
-            if (word is not null)
-				View.DisplayNewWord(word.Value);
-			View.SetNextButtonText(Constants.DefaultShowNextButtonText);
+			if (word is null)
+			{
+				View.ShowError(Constants.NoWordsFoundError);
+				return;
+			}
+
+			View.DisplayNewWord(word.Value);
+			View.SetShowNextButtonText(Constants.DefaultShowNextButtonText);
         }
-        public void ShowTranslation()
+
+		private void OnShowTranslationRequested(object? sender, EventArgs e)
         {
             var currentWord = WordTrainerService.GetCurrentWord();
 
@@ -58,15 +75,16 @@ namespace DictionaryTrainer.WinApp.Presenter
                 return;
 			WordTrainerService.UpdateCurrentWord();
 			View.DisplayTranslation(currentWord.Translation);
-			View.SetNextButtonText(Constants.ChangedShowNextButtonText);
+			View.SetShowNextButtonText(Constants.ChangedShowNextButtonText);
         }
-        public void DeleteWord()
+
+		private void OnDeleteWordRequested(object? sender, EventArgs e)
         {
             if (WordTrainerService.GetCurrentWord() is null)
                 return;
 			WordTrainerService.DeleteCurrentWord();
-			DisplayNewWord();
-        }
+		}
+
 		private bool ValidateUser()
 		{
 			if (!UserId.HasValue)

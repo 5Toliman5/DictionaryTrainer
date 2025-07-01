@@ -1,9 +1,9 @@
-﻿using Common.Extensions;
-using DictionaryTrainer.DAL.Repositories.Abstract;
+﻿using DictionaryTrainer.DAL.Repositories.Abstract;
 using DictionaryTrainer.Domain.Entities;
 using DictionaryTrainer.Domain.Models;
 using DictionaryTrainer.Domain.Services;
-namespace DictinaryTrainer.BusinessLogic.Services
+
+namespace DictionaryTrainer.BusinessLogic.Services
 {
     public class WordTrainerService : IWordTrainerService
 	{
@@ -23,16 +23,14 @@ namespace DictinaryTrainer.BusinessLogic.Services
 
 		public void SetUser(int userId) => CurrentUserId = userId;
 
-		public int LoadAllWords()
-		{
-			Words = Repository.GetAllWords(CurrentUserId.Value);
-			return Words.Count;
-		}
+		public int GetWordsCount() => Words.Count;
+
+		public void LoadWords() => Words = Repository.GetAllWords(CurrentUserId.Value);
 
 		public WordDto? GetCurrentWord()
 		{
-			return CurrentWord is null?
-				null
+			return CurrentWord is null 
+				? null
 				: new(CurrentWord.Value, CurrentWord.Translation);
 		}
 
@@ -41,7 +39,10 @@ namespace DictinaryTrainer.BusinessLogic.Services
 			if (CurrentWord is not null) 
 				Words.Remove(CurrentWord);
 
-			if (Words.IsNullOrEmpty())
+			if (Words.Count == 0) 
+				LoadWords();
+
+			if (Words.Count == 0) 
 				return null;
 
 			CurrentWord = Words[Random.Next(Words.Count)];

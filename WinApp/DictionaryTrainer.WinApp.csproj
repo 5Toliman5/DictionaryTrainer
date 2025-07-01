@@ -21,7 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DAL\DictionaryTrainer.DAL.csproj" />
-    <ProjectReference Include="..\DictinaryTrainer.Infrastructure\DictinaryTrainer.BusinessLogic.csproj" />
+    <ProjectReference Include="..\DictinaryTrainer.Infrastructure\DictionaryTrainer.BusinessLogic.csproj" />
     <ProjectReference Include="..\DictinaryTrainer.Infrastructure\DictinaryTrainer.Infrastructure.csproj" />
     <ProjectReference Include="..\DictionaryTrainer.Domain\DictionaryTrainer.Domain.csproj" />
   </ItemGroup>
