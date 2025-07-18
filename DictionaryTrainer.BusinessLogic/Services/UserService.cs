@@ -1,4 +1,4 @@
-﻿using DictionaryTrainer.DAL.Repositories.Abstract;
+﻿using DictionaryTrainer.Domain.Abstract;
 using DictionaryTrainer.Domain.Services;
 
 namespace DictionaryTrainer.BusinessLogic.Services

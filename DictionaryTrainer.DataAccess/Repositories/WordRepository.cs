@@ -1,24 +1,24 @@
 ﻿using Dapper;
-using DictionaryTrainer.DAL.Models;
-using DictionaryTrainer.DAL.Repositories.Abstract;
 using DictionaryTrainer.DAL.SqlQueries;
+using DictionaryTrainer.Domain.Abstract;
 using DictionaryTrainer.Domain.Entities;
+using DictionaryTrainer.Domain.Models;
 using Microsoft.Data.SqlClient;
 
-namespace DictionaryTrainer.DAL.Repositories
+namespace DictionaryTrainer.DataAccess.Repositories
 {
 	public class WordRepository : IWordRepository
 	{
-		private readonly string ConnectionString;
+		private readonly string _connectionString;
 
 		public WordRepository(string connectionString)
 		{
-			ConnectionString = connectionString;
+			_connectionString = connectionString;
 		}
 
 		public List<Word> GetAllWords(int userId)
 		{
-			using var connection = new SqlConnection(ConnectionString);
+			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
 			var words = connection.Query<Word>(WordSqlQueries.SelectAllWords, new { UserId = userId });			
 			connection.Close();
@@ -27,7 +27,7 @@ namespace DictionaryTrainer.DAL.Repositories
 
 		public void AddWord(AddWordModel model)
 		{
-			using var connection = new SqlConnection(ConnectionString);
+			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
 			using var transaction = connection.BeginTransaction();
 			try
@@ -49,7 +49,7 @@ namespace DictionaryTrainer.DAL.Repositories
 
 		public void DeleteWord(EditWordModel model)
 		{
-			using var connection = new SqlConnection(ConnectionString);
+			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
 			using var transaction = connection.BeginTransaction();
 			try
@@ -58,9 +58,7 @@ namespace DictionaryTrainer.DAL.Repositories
 
 				var userCount = connection.ExecuteScalar<int>(WordSqlQueries.SelectUserCountOfWord, model, transaction);
 				if (userCount == 0)
-				{
 					connection.Execute(WordSqlQueries.DeleteWord, model, transaction);
-				}
 				transaction.Commit();
 			}
 			catch
@@ -76,7 +74,7 @@ namespace DictionaryTrainer.DAL.Repositories
 
 		public void UpdateWordWeight(EditWordModel model)
 		{
-			using var connection = new SqlConnection(ConnectionString);
+			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
 			connection.Execute(WordSqlQueries.UpdateWordWeight, model);
 			connection.Close();

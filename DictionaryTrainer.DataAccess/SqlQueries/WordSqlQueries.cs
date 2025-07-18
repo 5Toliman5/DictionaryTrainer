@@ -1,5 +1,5 @@
-﻿using DictionaryTrainer.DAL.Models;
-using DictionaryTrainer.Domain.Entities;
+﻿using DictionaryTrainer.Domain.Entities;
+using DictionaryTrainer.Domain.Models;
 
 namespace DictionaryTrainer.DAL.SqlQueries
 {

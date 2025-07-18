@@ -1,4 +1,4 @@
-﻿namespace DictionaryTrainer.DAL.Repositories.Abstract
+﻿namespace DictionaryTrainer.Domain.Abstract
 {
 	public interface IUserRepository
 	{

@@ -1,7 +1,7 @@
-﻿using DictionaryTrainer.DAL.Models;
-using DictionaryTrainer.Domain.Entities;
+﻿using DictionaryTrainer.Domain.Entities;
+using DictionaryTrainer.Domain.Models;
 
-namespace DictionaryTrainer.DAL.Repositories.Abstract
+namespace DictionaryTrainer.Domain.Abstract
 {
 	public interface IWordRepository
 	{
