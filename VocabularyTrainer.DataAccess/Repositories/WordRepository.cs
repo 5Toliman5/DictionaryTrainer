@@ -16,24 +16,24 @@ namespace VocabularyTrainer.DataAccess.Repositories
 			_connectionString = connectionString;
 		}
 
-		public List<Word> GetAllWords(int userId)
+		public List<WordDto> GetAllWords(int userId)
 		{
 			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
-			var words = connection.Query<Word>(WordSqlQueries.SelectAllWords, new { UserId = userId });			
+			var words = connection.Query<WordDto>(WordSqlQueries.SelectAllWords, new { UserId = userId });			
 			connection.Close();
 			return words.ToList();
 		}
 
-		public void AddWord(AddWordModel model)
+		public void AddWord(AddWordRequest request)
 		{
 			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
 			using var transaction = connection.BeginTransaction();
 			try
 			{
-				var insertedWordId = connection.ExecuteScalar<int>(WordSqlQueries.InsertWord, model.Word, transaction);
-				connection.Execute(WordSqlQueries.InsertUserWord, new EditWordModel(insertedWordId, model.UserId), transaction);
+				var insertedWordId = connection.ExecuteScalar<int>(WordSqlQueries.InsertWord, request.Word, transaction);
+				connection.Execute(WordSqlQueries.InsertUserWord, new EditWordRequest(insertedWordId, request.UserId), transaction);
 				transaction.Commit();
 			}
 			catch
@@ -47,18 +47,18 @@ namespace VocabularyTrainer.DataAccess.Repositories
 			}
 		}
 
-		public void DeleteWord(EditWordModel model)
+		public void DeleteWord(EditWordRequest request)
 		{
 			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
 			using var transaction = connection.BeginTransaction();
 			try
 			{
-				connection.Execute(WordSqlQueries.DeleteUserWord, model, transaction);
+				connection.Execute(WordSqlQueries.DeleteUserWord, request, transaction);
 
-				var userCount = connection.ExecuteScalar<int>(WordSqlQueries.SelectUserCountOfWord, model, transaction);
+				var userCount = connection.ExecuteScalar<int>(WordSqlQueries.SelectUserCountOfWord, request, transaction);
 				if (userCount == 0)
-					connection.Execute(WordSqlQueries.DeleteWord, model, transaction);
+					connection.Execute(WordSqlQueries.DeleteWord, request, transaction);
 				transaction.Commit();
 			}
 			catch
@@ -72,11 +72,12 @@ namespace VocabularyTrainer.DataAccess.Repositories
 			}
 		}
 
-		public void UpdateWordWeight(EditWordModel model)
+		public void UpdateWordWeight(UpdateWordWeightRequest request)
 		{
+			var query = string.Format(WordSqlQueries.UpdateWordWeight, request.Operator);
 			using var connection = new SqlConnection(_connectionString);
 			connection.Open();
-			connection.Execute(WordSqlQueries.UpdateWordWeight, model);
+			connection.Execute(query, request);
 			connection.Close();
 		}
 	}

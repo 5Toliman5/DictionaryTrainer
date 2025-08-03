@@ -2,5 +2,5 @@
 
 namespace VocabularyTrainer.Domain.Models
 {
-	public record AddWordModel(Word Word, int UserId);
+	public record AddWordRequest(Word Word, int UserId);
 }

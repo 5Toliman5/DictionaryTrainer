@@ -8,17 +8,20 @@ namespace VocabularyTrainer.BusinessLogic.Services
     public class WordTrainerService : IWordTrainerService
 	{
 		private readonly IWordRepository _repository;
-		private readonly Random _random;
+		private readonly IWordsShuffleService _wordsShuffleService;
 
-		private readonly List<Word> _words;
-		private Word? _currentWord;
+		private readonly List<WordDto> _words;
+		private WordDto? _currentWord;
+		private readonly int _maxWeight;
+
 		private int? _currentUserId;
 
-		public WordTrainerService(IWordRepository repository)
+		public WordTrainerService(int maxWeight, IWordRepository repository, IWordsShuffleService wordsShuffleService)
 		{
 			_repository = repository;
 			_words = [];
-			_random = new();
+			_maxWeight = maxWeight;
+			_wordsShuffleService = wordsShuffleService;
 		}
 
 		public void SetUser(int userId) => _currentUserId = userId;
@@ -27,14 +30,16 @@ namespace VocabularyTrainer.BusinessLogic.Services
 
 		public void LoadWords()
 		{
-			_words.AddRange(_repository.GetAllWords(CurrentUserId));
+			var dbWords = _repository.GetAllWords(CurrentUserId);
+			var shuffledWords = _wordsShuffleService.Shuffle(dbWords);
+			_words.AddRange(shuffledWords);
 		}
 
 		public WordDto? GetCurrentWord()
 		{
 			return _currentWord is null 
 				? null
-				: new (_currentWord.Value, _currentWord.Translation);
+				: new WordDto(_currentWord.Value, _currentWord.Translation);
 		}
 
 		public WordDto? GetNewWord()
@@ -48,8 +53,8 @@ namespace VocabularyTrainer.BusinessLogic.Services
 			if (_words.Count == 0) 
 				return null;
 
-			_currentWord = _words[_random.Next(_words.Count)];
-			return new(_currentWord.Value, _currentWord.Translation);
+			_currentWord = _words[0];
+			return new WordDto(_currentWord.Value, _currentWord.Translation);
 		}
 
 		public void AddWord(WordDto word)
@@ -61,23 +66,20 @@ namespace VocabularyTrainer.BusinessLogic.Services
 			if (existingWord is not null)
 			{
 				_words.Remove(existingWord);
-				_repository.DeleteWord(new(existingWord.ID, CurrentUserId));
+				_repository.DeleteWord(new EditWordRequest(existingWord.Id, CurrentUserId));
 			}
-			var newWord = new Word
-			{
-				Value = word.Value,
-				Translation = word.Translation
-			};
+			var newWord = new WordDto(word.Value, word.Translation);
 
 			_words.Add(newWord);
-			_repository.AddWord(new(newWord, CurrentUserId));
+			_repository.AddWord(new AddWordRequest(new Word(word.Value, word.Translation), CurrentUserId));
 		}
 
-		public void UpdateCurrentWord()
+		public void UpdateCurrentWord(UpdateWeightType updateWeightType)
 		{
-			if (_currentWord is null)
+			if (!NeedToUpdateWordWeight(updateWeightType))
 				return;
-			_repository.UpdateWordWeight(new(_currentWord.ID, CurrentUserId));
+
+			_repository.UpdateWordWeight(new UpdateWordWeightRequest(_currentWord.Id, CurrentUserId, updateWeightType));
 		}
 
 		public void DeleteCurrentWord()
@@ -85,15 +87,28 @@ namespace VocabularyTrainer.BusinessLogic.Services
 			if (_currentWord is null)
 				return;
 			_words.Remove(_currentWord);
-			_repository.DeleteWord(new(_currentWord.ID, CurrentUserId));
+			_repository.DeleteWord(new EditWordRequest(_currentWord.Id, CurrentUserId));
 			_currentWord = null;
 		}
 
-		private Word? GetExistingWord(WordDto newWord)
+		private WordDto? GetExistingWord(WordDto newWord)
 		{
 			return _words.FirstOrDefault(x => x.Value.Equals(newWord.Value, StringComparison.CurrentCultureIgnoreCase));
 		}
 
 		private int CurrentUserId => _currentUserId ?? throw new InvalidOperationException("Current user is not set.");
+
+		private bool NeedToUpdateWordWeight(UpdateWeightType updateWeightType)
+		{
+			if (_currentWord is null)
+				return false;
+
+			return updateWeightType switch
+			{
+				UpdateWeightType.Increase => _currentWord.Weight < _maxWeight,
+				UpdateWeightType.Decrease => _currentWord.Weight > 0,
+				_ => false
+			};
+		}
 	}
 }

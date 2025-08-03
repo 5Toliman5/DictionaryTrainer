@@ -2,7 +2,6 @@
 {
 	public static class Constants
     {
-        public const string DefaultDbConnection = "default";
         public const string EmptyInput = "Please, enter the {0}.";
         public const string InputTextBoxRegex = @"\b[\p{L}\p{M}'-]+\b";
         public const string DefaultShowNextButtonText = "I remember!";

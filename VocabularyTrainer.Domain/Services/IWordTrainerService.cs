@@ -18,6 +18,6 @@ namespace VocabularyTrainer.Domain.Services
 
         void SetUser(int userId);
 
-        void UpdateCurrentWord();
+        void UpdateCurrentWord(UpdateWeightType updateWeightType);
     }
 }

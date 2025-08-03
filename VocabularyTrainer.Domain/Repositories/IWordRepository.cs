@@ -1,16 +1,15 @@
-﻿using VocabularyTrainer.Domain.Entities;
-using VocabularyTrainer.Domain.Models;
+﻿using VocabularyTrainer.Domain.Models;
 
 namespace VocabularyTrainer.Domain.Repositories
 {
 	public interface IWordRepository
 	{
-		List<Word> GetAllWords(int userId);
+		List<WordDto> GetAllWords(int userId);
 
-		void AddWord(AddWordModel model);
+		void AddWord(AddWordRequest request);
 
-		void DeleteWord(EditWordModel model);
+		void DeleteWord(EditWordRequest request);
 
-		void UpdateWordWeight(EditWordModel model);
+		void UpdateWordWeight(UpdateWordWeightRequest request);
 	}
 }

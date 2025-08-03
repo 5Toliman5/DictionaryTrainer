@@ -220,10 +220,10 @@
 			UserPage.Controls.Add(CurrentUserTextBox);
 			UserPage.Controls.Add(CurrentUserLabel);
 			UserPage.ForeColor = Color.Black;
-			UserPage.Location = new Point(4, 24);
+			UserPage.Location = new Point(4, 35);
 			UserPage.Name = "UserPage";
 			UserPage.Padding = new Padding(3);
-			UserPage.Size = new Size(791, 335);
+			UserPage.Size = new Size(791, 324);
 			UserPage.TabIndex = 2;
 			UserPage.Text = "Select user";
 			// 
@@ -235,7 +235,7 @@
 			textBox1.ReadOnly = true;
 			textBox1.Size = new Size(437, 153);
 			textBox1.TabIndex = 13;
-			textBox1.Text = "TO IMPLEMENT:\r\n1. MULTIPLE USERS\r\n2. MULTIPLE DICTIONARIES PER USER\r\n3. WEIGHT ALGORITHM\r\n4. MY WORDS PAGE";
+			textBox1.Text = "TO IMPLEMENT:\r\n1. MULTIPLE USERS\r\n2. MULTIPLE DICTIONARIES PER USER\r\n3. MY WORDS PAGE";
 			// 
 			// CurrentUserTextBox
 			// 

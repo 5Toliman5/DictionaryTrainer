@@ -10,7 +10,9 @@ namespace VocabularyTrainer.WinApp.Presenter
         private readonly IMainFormView _view;
         private readonly IUserService _userService;
         private readonly IWordTrainerService _wordTrainerService;
+
         private int? _userId;
+		private bool _translationWasShown = false;
 
 		public MainFormPresenter(IMainFormView view, IUserService userService, IWordTrainerService wordTrainerService)
 		{
@@ -53,8 +55,15 @@ namespace VocabularyTrainer.WinApp.Presenter
 		private void OnShowNextWordRequested(object? sender, EventArgs e)
         {
 			_view.ClearShowWordOutput();
+
 			if (!_userId.HasValue)
 				return;
+
+			if (!_translationWasShown)
+			{
+				_wordTrainerService.UpdateCurrentWord(UpdateWeightType.Decrease);
+			}
+			_translationWasShown = false;
 
 			var word = _wordTrainerService.GetNewWord();
 			if (word is null)
@@ -70,10 +79,10 @@ namespace VocabularyTrainer.WinApp.Presenter
 		private void OnShowTranslationRequested(object? sender, EventArgs e)
         {
             var currentWord = _wordTrainerService.GetCurrentWord();
-
 			if (currentWord is null) 
                 return;
-			_wordTrainerService.UpdateCurrentWord();
+
+			_wordTrainerService.UpdateCurrentWord(UpdateWeightType.Increase);
 			_view.DisplayTranslation(currentWord.Translation);
 			_view.SetShowNextButtonText(Constants.ChangedShowNextButtonText);
         }
